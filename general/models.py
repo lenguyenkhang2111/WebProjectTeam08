@@ -14,7 +14,7 @@ class Customer(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=255)
     best_seller_course = models.ForeignKey(
-        'Course', on_delete=models.SET_NULL, null=True)
+        'Course', on_delete=models.SET_NULL, null=True, related_name='best_seller')
 
 
 class Course(models.Model):
