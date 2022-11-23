@@ -9,6 +9,7 @@ class Customer(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=255)
     birth_date = models.DateField(null=True)
+    subscription_expired = models.DateField(null=True)
 
 
 class Category(models.Model):
