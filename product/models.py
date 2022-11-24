@@ -8,6 +8,9 @@ class Category(models.Model):
     best_seller_course = models.ForeignKey(
         'Course', on_delete=models.SET_NULL, null=True, related_name='best_seller')
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class Course(models.Model):
     title = models.CharField(max_length=255)
@@ -21,3 +24,5 @@ class Course(models.Model):
         (COURSE_STATUS_AVAILABLE, 'Available'),
         (COURSE_STATUS_UNAVAILABLE, 'Unavailable')
     ]
+    course_status = models.CharField(
+        max_length=2, choices=COURSE_STATUS_CHOICES, default=COURSE_STATUS_AVAILABLE)
