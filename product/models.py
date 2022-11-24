@@ -15,3 +15,9 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2,
                                 validators=[MinValueValidator(1)])
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    COURSE_STATUS_AVAILABLE = 'A'
+    COURSE_STATUS_UNAVAILABLE = 'UA'
+    COURSE_STATUS_CHOICES = [
+        (COURSE_STATUS_AVAILABLE, 'Available'),
+        (COURSE_STATUS_UNAVAILABLE, 'Unavailable')
+    ]

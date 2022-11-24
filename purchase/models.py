@@ -31,6 +31,7 @@ class OrderDetail(models.Model):
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
 
 
 class CartItem(models.Model):
