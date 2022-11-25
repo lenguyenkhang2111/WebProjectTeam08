@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
@@ -26,3 +26,6 @@ class Course(models.Model):
     ]
     course_status = models.CharField(
         max_length=2, choices=COURSE_STATUS_CHOICES, default=COURSE_STATUS_AVAILABLE)
+    rated = models.PositiveSmallIntegerField(null=True,
+                                             validators=[MinValueValidator(0), MaxValueValidator(5)])
+    duration = models.DurationField(null=True)

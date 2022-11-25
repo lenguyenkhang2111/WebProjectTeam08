@@ -63,10 +63,9 @@
     <!-- Spinner End -->
 
     <!-- Navbar -->
-    {% include 'includes/navbar.html' %}
-
+    {% include 'includes/navbar.html' %} {% block content %}
     <!-- Content -->
-    {% block content %}{% endblock content %}
+    {% endblock content %}
 
     <!-- Footer -->
     {% include 'includes/footer.html' %}
