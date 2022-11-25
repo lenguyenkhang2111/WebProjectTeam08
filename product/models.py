@@ -29,3 +29,5 @@ class Course(models.Model):
     rated = models.PositiveSmallIntegerField(null=True,
                                              validators=[MinValueValidator(0), MaxValueValidator(5)])
     duration = models.DurationField(null=True)
+    image = models.ImageField(null=True, blank=True,
+                              upload_to="product/course/image/")
