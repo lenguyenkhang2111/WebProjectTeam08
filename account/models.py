@@ -6,5 +6,5 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=255)
-    birth_date = models.DateField(null=True)
-    subscription_expired = models.DateField(null=True)
+    birth_date = models.DateField(null=True, blank=True)
+    subscription_expired = models.DateField(null=True, blank=True)
