@@ -48,8 +48,6 @@ class Account(AbstractBaseUser):
     birth_date = models.DateField(null=True, blank=True)
     subscription_expired = models.DateField(null=True, blank=True)
     # REQUIRED_FIELDS
-    date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now_add=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
