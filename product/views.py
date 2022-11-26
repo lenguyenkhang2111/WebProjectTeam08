@@ -10,11 +10,11 @@ def course(request, category_slug=None):
         categories = get_object_or_404(Category, slug=category_slug)
         courses = Course.objects.all().filter(category=categories, course_status='A')
     else:
-        courses = Course.objects.all().filter(is_available=True).order_by('id')
+        courses = Course.objects.all().filter(course_status='A').order_by('pk')
 
     page = request.GET.get('page')
     page = page or 1
-    paginator = Paginator(courses, 3)
+    paginator = Paginator(courses, 6)
     paged_courses = paginator.get_page(page)
     course_count = courses.count()
 

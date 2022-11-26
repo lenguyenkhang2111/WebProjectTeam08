@@ -108,7 +108,7 @@ def signin(request):
             return render(request, "home.html", {'fname': fname})
         else:
             messages.error(request, "Bad Credentials!")
-            return redirect('home')
+            return redirect('signin')
 
     return render(request, "account/signin.html")
 

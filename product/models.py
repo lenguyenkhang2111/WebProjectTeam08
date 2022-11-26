@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
+from django_resized import ResizedImageField
 # Create your models here.
 
 
@@ -38,9 +39,9 @@ class Course(models.Model):
     rated = models.PositiveSmallIntegerField(null=True,
                                              validators=[MinValueValidator(0), MaxValueValidator(5)])
     duration = models.DurationField(null=True, blank=True)
-    image = models.ImageField(null=True, blank=True,
-                              upload_to="product/course/image/")
-    slug = models.SlugField(max_length=200, unique=True, null=True)
+    image = ResizedImageField(size=[500, 300], upload_to="product/course/image/", null=True, blank=True, crop=['middle', 'left']
+                              )
+    slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
 
     def get_url(self):
         return reverse('course_detail', ars=[self.category.slug, self.slug])
