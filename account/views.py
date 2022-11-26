@@ -37,10 +37,10 @@ def signup(request):
         if Account.objects.filter(username=username):
             messages.error(
                 request, "User name already exist!!! Please try some other username")
-            return redirect('account')
+            return redirect('signup')
         if Account.objects.filter(email=email):
             messages.error(request, "Email already exist!!!")
-            return redirect('account')
+            return redirect('signup')
 
         if len(username) > 10:
             messages.error(request, "Username must be under 10 characters")
@@ -50,7 +50,7 @@ def signup(request):
 
         if not username.isalnum():
             messages.error(request, "Username must be Alpha_Numberic!!!")
-            return redirect('account')
+            return redirect('signup')
 
         myuser = Account.objects.create_user(
             first_name=first_name, last_name=last_name, email=email, username=username, password=password1)
@@ -88,7 +88,7 @@ def signup(request):
         email.fail_silently = True
         email.send()
 
-        return redirect("account/signin")
+        return redirect("signin")
 
     return render(request, "account/signup.html")
 
