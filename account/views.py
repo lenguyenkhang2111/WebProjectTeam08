@@ -25,10 +25,10 @@ from . tokens import generate_token
 
 def signup(request):
     if request.method == "POST":
-        #username = request.POST.get('username')
+        # username = request.POST.get('username')
         username = request.POST['username']
-        fname = request.POST['fname']
-        lname = request.POST['lname']
+        first_name = request.POST['fname']
+        last_name = request.POST['lname']
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -52,9 +52,8 @@ def signup(request):
             messages.error(request, "Username must be Alpha_Numberic!!!")
             return redirect('account')
 
-        myuser = Account.objects.create_user(username, email, password1)
-        myuser.first_name = fname
-        myuser.last_name = lname
+        myuser = Account.objects.create_user(
+            first_name=first_name, last_name=last_name, email=email, username=username, password=password1)
 
         myuser.save()
 
