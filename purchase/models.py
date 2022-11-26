@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Customer
+from account.models import Account
 from django.core.validators import MinValueValidator
 from product.models import Course
 
@@ -19,7 +19,7 @@ class Order(models.Model):
     placed_at = models.DateTimeField(auto_now_add=True)
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_STATUS_PENDING)
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    customer = models.ForeignKey(Account, on_delete=models.PROTECT)
 
 
 class OrderDetail(models.Model):
@@ -31,7 +31,7 @@ class OrderDetail(models.Model):
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    customer = models.OneToOneField(Account, on_delete=models.CASCADE)
 
 
 class CartItem(models.Model):
