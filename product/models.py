@@ -21,11 +21,17 @@ class Category(models.Model):
         return self.title
 
 
+class Instructor(models.Model):
+    name = models.CharField(max_length=50)
+
+
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2,
                                 validators=[MinValueValidator(1)])
+    instructor = models.ForeignKey(
+        Instructor, on_delete=models.CASCADE, blank=True, null=True)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
     COURSE_STATUS_AVAILABLE = 'A'
@@ -34,6 +40,8 @@ class Course(models.Model):
         (COURSE_STATUS_AVAILABLE, 'Available'),
         (COURSE_STATUS_UNAVAILABLE, 'Unavailable')
     ]
+    lesson_number = models.PositiveBigIntegerField(null=True,
+                                                   validators=[MinValueValidator(0)])
     course_status = models.CharField(
         max_length=2, choices=COURSE_STATUS_CHOICES, default=COURSE_STATUS_AVAILABLE)
     rated = models.PositiveSmallIntegerField(null=True,
