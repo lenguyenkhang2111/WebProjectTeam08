@@ -39,9 +39,10 @@ class Course(models.Model):
     rated = models.PositiveSmallIntegerField(null=True,
                                              validators=[MinValueValidator(0), MaxValueValidator(5)])
     duration = models.DurationField(null=True, blank=True)
-    image = ResizedImageField(size=[500, 300], upload_to="product/course/image/", null=True, blank=True, crop=['middle', 'left']
+    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="product/course/image/", null=True, blank=True, quality=100
                               )
-    slug = models.SlugField(max_length=200, unique=True, null=True, blank=True)
+    slug = models.SlugField(max_length=200, unique=True,
+                            null=True, blank=True)
 
     def get_url(self):
         return reverse('course_detail', ars=[self.category.slug, self.slug])
