@@ -9,7 +9,7 @@ class Category(models.Model):
     title = models.CharField(max_length=255)
     best_seller_course = models.ForeignKey(
         'Course', on_delete=models.SET_NULL, null=True, related_name='best_seller', blank=True)
-    slug = models.SlugField(max_length=100, unique=True, null=True)
+    slug = models.SlugField(max_length=100, unique=True, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -41,11 +41,11 @@ class Course(models.Model):
         (COURSE_STATUS_UNAVAILABLE, 'Unavailable')
     ]
     lesson_number = models.PositiveBigIntegerField(null=True,
-                                                   validators=[MinValueValidator(0)])
+                                                   validators=[MinValueValidator(0)], blank=True)
     course_status = models.CharField(
         max_length=2, choices=COURSE_STATUS_CHOICES, default=COURSE_STATUS_AVAILABLE)
     rated = models.PositiveSmallIntegerField(null=True,
-                                             validators=[MinValueValidator(0), MaxValueValidator(5)])
+                                             validators=[MinValueValidator(0), MaxValueValidator(5)], blank=True)
     duration = models.DurationField(null=True, blank=True)
     image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="product/course/image/", null=True, blank=True, quality=100
                               )

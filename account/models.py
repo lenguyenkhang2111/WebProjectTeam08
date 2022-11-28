@@ -29,6 +29,7 @@ class MyAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_active = True
         user.is_superadmin = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
 
@@ -44,18 +45,11 @@ class Account(AbstractBaseUser):
     # REQUIRED_FIELDS
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
-    USERNAME_FIELD = 'username'    # Trường quyêt định khi login
-    # Các trường yêu cầu khi đk tài khoản (mặc định đã có email), mặc định có password
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
     objects = MyAccountManager()
-
-    USERNAME_FIELDS = 'username'
-
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
-    object = MyAccountManager()
 
     def __str__(self):
         return self.email

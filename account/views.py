@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from . tokens import generate_token
+from django.contrib import messages, auth
 
 # Create your views here.
 
@@ -53,7 +54,7 @@ def signup(request):
             return redirect('signup')
 
         myuser = Account.objects.create_user(
-            first_name=first_name, last_name=last_name, email=email, username=username, password=password1)
+            first_name=first_name, last_name=last_name,  username=username, email=email, password=password1)
 
         myuser.save()
 
@@ -100,7 +101,7 @@ def signin(request):
         username = request.POST['username']
         password1 = request.POST['password1']
 
-        user = authenticate(username=username, password=password1)
+        user = auth.authenticate(username=username, password=password1)
 
         if user is not None:
             login(request, user)
