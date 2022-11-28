@@ -4,6 +4,9 @@
     --light: #F0FBFC;
     --dark: #181d38;
 }
+a{
+    color: white;
+}
 
 .fw-medium {
     font-weight: 600 !important;
