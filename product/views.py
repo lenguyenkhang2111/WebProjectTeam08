@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 from product.models import Category, Course
+from purchase.models import Cart, CartItem
 
 # Create your views here.
 
@@ -23,3 +24,12 @@ def course(request, category_slug=None):
         'course_count': course_count,
     }
     return render(request, 'product/course.html', context=context)
+
+
+def course_detail(request, category_slug, course_slug=None):
+    single_course = Course.objects.get(
+        category__slug=category_slug, slug=course_slug)
+    context = {
+        'single_product': single_course,
+    }
+    return render(request, 'course/course_detail.html', context=context)
