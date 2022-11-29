@@ -1,101 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-    />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      .add-inputs,
-      .add-inputs input {
-        float: left;
-        margin-right: 10px;
-        margin-bottom: 2px;
-      }
-
-      .add-inputs button {
-        border-radius: 0;
-      }
-
-      .add-inputs input {
-        height: 48px;
-        width: 65px;
-        border-radius: 0;
-      }
-
-      .par-title {
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container my-5">
-      <div class="row">
-        <div class="col-md-6">
+{% extends 'base.html' %} {% block custom_style %}
+<link rel="stylesheet" href="" /> {% endblock custom_style %} {% load static %}
+{% block content %}
+<div class="card-wrapper">
+  <div class="card">
+    <!-- card left -->
+    <div class="product-imgs">
+      <div class="img-display">
+        <div class="img-showcase">
           <img
-            class="img-fluid details-img"
-            src="https://source.unsplash.com/5Tm4YRqnNcM"
-            alt=""
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
+            alt="shoe image"
+          />
+          <img
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg"
+            alt="shoe image"
+          />
+          <img
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"
+            alt="shoe image"
+          />
+          <img
+            src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
+            alt="shoe image"
           />
         </div>
-        <div class="col-md-6">
-          <span>Graphite</span>
-          <h3>iPhone 7 Graphite - 256GB</h3>
-          <h3>$1199.00</h3>
-
-          <form class="add-inputs" method="post">
-            <input
-              type="number"
-              class="form-control"
-              id="cart_quantity"
-              name="cart_quantity"
-              value="1"
-              min="1"
-              max="10"
+      </div>
+      <div class="img-select">
+        <div class="img-item">
+          <a href="#" data-id="1">
+            <img
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg"
+              alt="shoe image"
             />
-            <button
-              name="add_to_cart"
-              type="submit"
-              class="btn btn-primary btn-lg"
-            >
-              Add to cart
-            </button>
-          </form>
-          <form class="add-inputs" method="post">
-            <button
-              name="add_to_cart"
-              type="submit"
-              class="btn btn-primary btn-lg"
-            >
-              Add to Wishlist
-            </button>
-          </form>
-          <div style="clear: both"></div>
-
-          <p class="par-title mt-4 mb-1">About this product</p>
-          <p class="dummy-description mb-4">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis
-            assumenda voluptatem tempore dolor quod. Expedita, id, minus
-            similique dolor sed adipisci aliquam natus amet doloremque delectus
-            cupiditate? Sint, quasi, ad necessitatibus omnis quaerat tenetur
-            corporis porro aut, natus ex ab id vel odit veniam fugiat temporibus
-            aperiam quia rem minima!
-          </p>
+          </a>
+        </div>
+        <div class="img-item">
+          <a href="#" data-id="2">
+            <img
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg"
+              alt="shoe image"
+            />
+          </a>
+        </div>
+        <div class="img-item">
+          <a href="#" data-id="3">
+            <img
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg"
+              alt="shoe image"
+            />
+          </a>
+        </div>
+        <div class="img-item">
+          <a href="#" data-id="4">
+            <img
+              src="https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg"
+              alt="shoe image"
+            />
+          </a>
         </div>
       </div>
-      <!-- End row -->
     </div>
-    <!-- End Container -->
-  </body>
-</html>
+    <!-- card right -->
+    <div class="product-content">
+      <h2 class="product-title">nike shoes</h2>
+      <a href="#" class="product-link">visit nike store</a>
+      <div class="product-rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+        <span>4.7(21)</span>
+      </div>
 
-<
+      <div class="product-price">
+        <p class="last-price">Old Price: <span>$257.00</span></p>
+        <p class="new-price">New Price: <span>$249.00 (5%)</span></p>
+      </div>
+
+      <div class="product-detail">
+        <h2>about this item:</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet
+          veniam tempora fuga tenetur placeat sapiente architecto illum soluta
+          consequuntur, aspernatur quidem at sequi ipsa!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur,
+          perferendis eius. Dignissimos, labore suscipit. Unde.
+        </p>
+        <ul>
+          <li>Color: <span>Black</span></li>
+          <li>Available: <span>in stock</span></li>
+          <li>Category: <span>Shoes</span></li>
+          <li>Shipping Area: <span>All over the world</span></li>
+          <li>Shipping Fee: <span>Free</span></li>
+        </ul>
+      </div>
+
+      <div class="purchase-info">
+        <input type="number" min="0" value="1" />
+        <button type="button" class="btn">
+          Add to Cart <i class="fas fa-shopping-cart"></i>
+        </button>
+        <button type="button" class="btn">Compare</button>
+      </div>
+
+      <div class="social-links">
+        <p>Share At:</p>
+        <a href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#">
+          <i class="fab fa-pinterest"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

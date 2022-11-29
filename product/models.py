@@ -15,7 +15,7 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def get_url(self):
-        return reverse('course_by_category', ars=[self.slug])
+        return reverse('course_by_category', args=[self.slug])
 
     def __str__(self):
         return self.title
@@ -53,7 +53,7 @@ class Course(models.Model):
                             null=True, blank=True)
 
     def get_url(self):
-        return reverse('course_detail', args=[self.category.slug, self.slug])
+        return reverse('course_detail', args=[self.slug])
 
     def __str__(self):
         return self.title
