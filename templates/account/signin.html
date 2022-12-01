@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,54 +10,13 @@
     <!-- Font Icon -->
     <link
       rel="stylesheet"
-      href="\static\general\fonts/material-icon/css/material-design-iconic-font.min.css"
+      href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}"
     />
 
-    <link rel="stylesheet" href="\static\account\css\style_account.css" />
+    <link rel="stylesheet" href="{% static 'account/css/style_account.css' %}" />
   </head>
   <body>
 
-    {% comment %} {% for message in messages %}
-    <div
-      class="alert alert-{{ message.tags }} alert-dismissible fade show"
-      role="alert"
-    >
-      <strong>Message:</strong> {{ message }}
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    {% endfor %}
-    <h3>Sign In</h3>  
-
-    <form action="{% url 'signin' %}" method="post">
-      {% csrf_token %}
-      <label for="">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
-        required
-      />
-      <br />
-      <label for="">Password</label>
-      <input
-        type="password"
-        id="password1"
-        name="password1"
-        placeholder="Enter your password"
-        required
-      />
-
-      <button type="submit">Sign in</button>
-    </form> {% endcomment %}
 
     {% for message in messages %}
     <div
@@ -82,9 +42,9 @@
           <div class="signin-content">
             <div class="signin-image">
               <figure>
-                <img src="\static\general\img\signin-image.jpg" alt="sing up image" />
+                <img src="{% static 'account/img/signin-image.jpg' %}" alt="sing up image" />
               </figure>
-              <a href="/account/signup" class="signup-image-link">Create an account</a>
+              <a href="{% url 'signup' %}" class="signup-image-link">Create an account</a>
             </div>
 
             <div class="signin-form">

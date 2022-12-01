@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,10 +9,12 @@
 
     <link
       rel="stylesheet"
-      href="\static\general\fonts/material-icon/css/material-design-iconic-font.min.css"
+      href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}"
     />
-
-    <link rel="stylesheet" href="\static\account\css\style_account.css" />
+    <link
+      rel="stylesheet"
+      href="{% static 'account/css/style_account.css' %}"
+    />
   </head>
   <body>
     {% for message in messages %}
@@ -33,65 +36,7 @@
     {% endfor %}
 
     <form action="{% url 'signup' %}" method="post">
-      {% csrf_token %} {% comment %} <label for="">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Create a username (Letter and number only)"
-        required
-      />
-      <br />
-      <label for="">First Name</label>
-      <input
-        type="text"
-        id="fname"
-        name="fname"
-        placeholder="Enter first name"
-        required
-      />
-
-      <br />
-      <label for="">Last Name</label>
-      <input
-        type="text"
-        id="lname"
-        name="lname"
-        placeholder="Enter last name"
-        required
-      />
-      <br />
-      <label for="">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email"
-        required
-      />
-
-      <br />
-      <label for="">Password</label>
-      <input
-        type="password"
-        id="password1"
-        name="password1"
-        placeholder="Create your password"
-        required
-      />
-
-      <br />
-      <label for="">Confirm your Password</label>
-      <input
-        type="password"
-        id="password2"
-        name="password2"
-        placeholder="Confirm your password"
-        required
-      />
-
-      <br />
-      <button type="submit">Sign up</button> {% endcomment %}
+      {% csrf_token %}
 
       <section class="signup">
         <div class="container">
@@ -195,11 +140,11 @@
             <div class="signup-image">
               <figure>
                 <img
-                  src="\static\general\img\signup-image.jpg"
+                  src="{% static 'account/img/signup-image.jpg' %}"
                   alt="sing up image"
                 />
               </figure>
-              <a href="/account/signin" class="signup-image-link"
+              <a href="{% url 'signin' %}" class="signup-image-link"
                 >I am already member</a
               >
             </div>
