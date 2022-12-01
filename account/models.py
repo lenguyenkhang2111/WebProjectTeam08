@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django_resized import ResizedImageField
 
 
 class MyAccountManager(BaseUserManager):
@@ -50,6 +51,10 @@ class Account(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
     objects = MyAccountManager()
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username} Proflie'
 
     def __str__(self):
         return self.email
@@ -62,3 +67,11 @@ class Account(AbstractBaseUser):
 
     def full_name(self):
         return self.first_name + " " + self.last_name
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
