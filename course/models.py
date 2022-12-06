@@ -46,7 +46,8 @@ class Course(models.Model):
         max_length=2, choices=COURSE_STATUS_CHOICES, default=COURSE_STATUS_AVAILABLE)
     rated = models.PositiveSmallIntegerField(null=True,
                                              validators=[MinValueValidator(0), MaxValueValidator(5)], blank=True)
-    duration = models.DurationField(null=True, blank=True)
+    duration = models.DecimalField(max_digits=6, decimal_places=2,
+                                   validators=[MinValueValidator(0)], blank=True, null=True)
     image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="course/course_image/", null=True, blank=True, quality=100
                               )
     slug = models.SlugField(max_length=200, unique=True,
