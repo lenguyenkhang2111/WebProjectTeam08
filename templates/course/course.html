@@ -8,6 +8,36 @@
       </h6>
       <h1 class="mb-5">All Courses</h1>
     </div>
+    <div
+      class="container text-center wow fadeInUp m-4 p-4 mw-100"
+      data-wow-delay="0.1s"
+    >
+      <div class="row justify-content-between p-4">
+        <div class="col-md-3">
+          <select
+            class="form-select btn btn-primary"
+            aria-label="Default select example"
+          >
+            <option class="bg-light text-dark" selected>All</option>
+            <option class="bg-light text-dark" value="1">One</option>
+            <option class="bg-light text-dark" value="2">Two</option>
+            <option class="bg-light text-dark" value="3">Three</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control border border-3"
+              placeholder="Something clever.."
+            />
+            <button class="btn btn-danger" type="button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row row-cols-lg-4 row-cols-md-2 g-4 justify-content-center">
       {% for course in courses %}
       <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
