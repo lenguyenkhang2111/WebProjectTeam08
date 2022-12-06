@@ -34,12 +34,9 @@
           <div class="text-center p-4 pb-0 flex-fill">
             <h3 class="mb-0">${{course.price}}</h3>
             <div class="mb-3">
+              {% for i in course.rated|center:course.rated%}
               <small class="fa fa-star text-primary"></small>
-              <small class="fa fa-star text-primary"></small>
-              <small class="fa fa-star text-primary"></small>
-              <small class="fa fa-star text-primary"></small>
-              <small class="fa fa-star text-primary"></small>
-              <small>(123)</small>
+              {% endfor %}
             </div>
             <h5 class="mb-4">{{ course.title }}</h5>
           </div>
@@ -48,10 +45,12 @@
               ><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small
             >
             <small class="flex-fill text-center border-end py-2"
-              ><i class="fa fa-clock text-primary me-2"></i> 12,5 Hrs</small
+              ><i class="fa fa-clock text-primary me-2"></i> {{course.duration}}
+              Hrs</small
             >
             <small class="flex-fill text-center py-2"
-              ><i class="fa fa-book-open text-primary me-2"></i>30 lessons
+              ><i class="fa fa-book-open text-primary me-2"></i
+              >{{course.lesson_number}} lessons
             </small>
           </div>
         </div>
