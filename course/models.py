@@ -32,6 +32,7 @@ class Course(models.Model):
                                 validators=[MinValueValidator(1)])
     instructor = models.ForeignKey(
         Instructor, on_delete=models.CASCADE, blank=True, null=True)
+    language = models.CharField(max_length=50, default='English')
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
     COURSE_STATUS_AVAILABLE = 'A'
