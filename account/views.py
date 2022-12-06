@@ -17,6 +17,7 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from . tokens import generate_token
 from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -133,3 +134,8 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return render(request, 'account/activation_failed.html')
+
+
+@login_required
+def profile(request):
+    return render(request, 'account/profile.html')
