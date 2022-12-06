@@ -26,10 +26,9 @@ def course(request, category_slug=None):
     return render(request, 'course/course.html', context=context)
 
 
-def course_detail(request, category_slug, course_slug=None):
-    single_course = Course.objects.get(
-        category__slug=category_slug, slug=course_slug)
+def course_detail(request, course_slug=None):
+    single_course = Course.objects.get(slug=course_slug)
     context = {
-        'single_product': single_course,
+        'single_course': single_course,
     }
     return render(request, 'course/course_detail.html', context=context)

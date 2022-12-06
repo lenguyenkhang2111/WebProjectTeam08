@@ -47,10 +47,10 @@
 
     <div class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
       {% if account.is_authenticated %}
-      <a href="account/signout">signout</a>
+      <a href="{% url 'signout' %}">Signout</a>
 
       {% else %}
-      <a href="account/signup">signup</a>
+      <a href="{% url 'signup' %}">Signup</a>
 
       {% endif %}
     </div>
