@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
+from django.urls import reverse
 from course.models import Category, Course
 from cart.models import Cart, CartItem
 
@@ -7,6 +8,8 @@ from cart.models import Cart, CartItem
 
 
 def course(request, category_slug=None):
+    category_set = Category.objects.all()
+    course_url = reverse('course')
     if category_slug is not None:
         categories = get_object_or_404(Category, slug=category_slug)
         courses = Course.objects.all().filter(category=categories, course_status='A')
@@ -22,6 +25,8 @@ def course(request, category_slug=None):
     context = {
         'courses': paged_courses,
         'course_count': course_count,
+        'categories': category_set,
+        'course_url': course_url
     }
     return render(request, 'course/course.html', context=context)
 
