@@ -6,7 +6,11 @@
       <h6 class="section-title bg-white text-center text-primary px-3">
         Courses
       </h6>
+      {% if category == None %}
       <h1 class="mb-5">All Courses</h1>
+      {% else %}
+      <h1 class="mb-5">{{category.title}} Courses</h1>
+      {% endif %}
     </div>
     <div
       class="container text-center wow fadeInUp m-4 p-4 mw-100"
@@ -18,16 +22,16 @@
             class="form-select btn btn-primary"
             aria-label="Default select example"
             onchange="location = this.value;"
-          >
-            <option class="bg-light text-dark" {% if request.path == course_url %} selected {% endif %} value="{{course_url}}">
-              All
-            </option>
-            {%for category in categories%}
-            <option class="bg-light text-dark" {% if request.path == category.get_url %} selected {% endif %} value="{{category.get_url}}">
-              {{category.title}}
-            </option>
-            {%endfor%}
-          </select>
+          >  
+           <option class="bg-light text-dark" {% if request.path == course_url %} selected {% endif %} value="{{course_url}}">
+            All
+          </option>
+          {%for category in links%}
+          <option class="bg-light text-dark" {% if request.path == category.get_url %} selected {% endif %} value="{{category.get_url}}">
+            {{category.title}}
+          </option>
+          {%endfor%}
+        </select>
         </div>
         <div class="col-md-3">
           <div class="input-group mb-3">

@@ -8,13 +8,13 @@ from cart.models import Cart, CartItem
 
 
 def course(request, category_slug=None):
-    category_set = Category.objects.all()
     course_url = reverse('course')
     if category_slug is not None:
-        categories = get_object_or_404(Category, slug=category_slug)
-        courses = Course.objects.all().filter(category=categories, course_status='A')
+        category = get_object_or_404(Category, slug=category_slug)
+        courses = Course.objects.all().filter(category=category, course_status='A')
     else:
         courses = Course.objects.all().filter(course_status='A').order_by('pk')
+        category = None
 
     page = request.GET.get('page')
     page = page or 1
@@ -25,7 +25,7 @@ def course(request, category_slug=None):
     context = {
         'courses': paged_courses,
         'course_count': course_count,
-        'categories': category_set,
+        'category': category,
         'course_url': course_url
     }
     return render(request, 'course/course.html', context=context)
