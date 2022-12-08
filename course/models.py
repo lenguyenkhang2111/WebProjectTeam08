@@ -51,11 +51,16 @@ class Course(models.Model):
                                    validators=[MinValueValidator(0)], blank=True, null=True)
     image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="course/course_image/", null=True, blank=True, quality=100
                               )
+    video = models.FileField(
+        upload_to="course/course_video", null=True, blank=True)
     slug = models.SlugField(max_length=200, unique=True,
                             null=True, blank=True)
 
     def get_url(self):
         return reverse('course_detail', args=[self.slug])
+
+    def get_video_url(self):
+        return reverse('course_watching', args=[self.slug])
 
     def __str__(self):
         return self.title

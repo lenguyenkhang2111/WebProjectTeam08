@@ -51,3 +51,11 @@ def search(request):
         'course_count': course_count
     }
     return render(request, 'course/course.html', context=context)
+
+
+def course_watching(request, course_slug=None):
+    course = Course.objects.get(slug=course_slug)
+    context = {
+        'course': course
+    }
+    return render(request, 'course/video.html', context=context)
