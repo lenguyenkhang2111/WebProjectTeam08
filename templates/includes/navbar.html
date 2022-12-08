@@ -52,21 +52,29 @@
       </div>
       <a href="contact.html" class="nav-item nav-link">Contact</a>
     </div>
-
-    <div class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">
-      {% if account.is_authenticated %}
-      <a href="{% url 'signout' %}">Signout</a>
-
-      {% else %}
-      <a href="{% url 'signup' %}">Signup</a>
-
-      {% endif %}
+    {% if user.is_authenticated %}
+    <div class="nav-item dropdown">
+      <a
+        href="#"
+        class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+        data-bs-toggle="dropdown"
+        ><i class="fa-solid fa-user-plus"></i> {{user.first_name}}</a
+      >
+      <div class="dropdown-menu fade-down m-0 text-center container-fluid">
+        <a href="team.html" class="dropdown-item">My learning</a>
+        <li><hr class="dropdown-divider" /></li>
+        <a href="testimonial.html" class="dropdown-item">Payment history</a>
+        <li><hr class="dropdown-divider" /></li>
+        <a href="{% url 'signout' %}" class="dropdown-item">Log out</a>
+      </div>
     </div>
-    {% comment %}
-    <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+    {% else %}
+    <a
+      href="{% url 'signup' %}"
+      class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
       >Join Now<i class="fa fa-arrow-right ms-3"></i
     ></a>
-    {% endcomment %}
+    {% endif %}
   </div>
 </nav>
 <!-- Navbar End -->
