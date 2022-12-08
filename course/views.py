@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.urls import reverse
 from course.models import Category, Course
 from cart.models import Cart, CartItem
-
+from django.db.models import Q
 # Create your views here.
 
 
@@ -37,3 +37,17 @@ def course_detail(request, course_slug=None):
         'single_course': single_course,
     }
     return render(request, 'course/course_detail.html', context=context)
+
+
+def search(request):
+    if 's' in request.GET:
+        s = request.GET.get('s')
+        courses = Course.objects.order_by(
+            'pk').filter(title__icontains=s)
+        course_count = courses.count()
+    context = {
+        'courses': courses,
+        's': s,
+        'course_count': course_count
+    }
+    return render(request, 'course/course.html', context=context)

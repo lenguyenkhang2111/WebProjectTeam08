@@ -11,6 +11,7 @@
       {% else %}
       <h1 class="mb-5">{{category.title}} Courses</h1>
       {% endif %}
+      <h4>Found ({{course_count}}) courses</h4>
     </div>
     <div
       class="container text-center wow fadeInUp m-4 p-4 mw-100"
@@ -34,16 +35,20 @@
         </select>
         </div>
         <div class="col-md-3">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control border border-3"
-              placeholder="Something clever.."
-            />
-            <button class="btn btn-danger" type="button">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
+          <form action="{% url 'search' %}" method="get">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control border border-3"
+                placeholder="Search"
+                name = "s"
+                value = "{{s}}"
+              />
+              <button class="btn btn-danger" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
