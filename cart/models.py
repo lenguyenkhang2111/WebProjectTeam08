@@ -8,7 +8,7 @@ from course.models import Course
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    customer = models.OneToOneField(Account, on_delete=models.CASCADE)
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
 
 
 class CartItem(models.Model):

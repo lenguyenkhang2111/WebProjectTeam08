@@ -62,5 +62,8 @@ class Course(models.Model):
     def get_video_url(self):
         return reverse('course_watching', args=[self.slug])
 
+    def add_to_cart_url(self):
+        return reverse('add_cart', args=[self.slug])
+
     def __str__(self):
         return self.title

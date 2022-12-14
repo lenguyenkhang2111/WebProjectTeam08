@@ -15,6 +15,11 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
+
+from cart.models import Cart, CartItem
+from cart.views import create_cart
+from .models import Account
+
 from . tokens import generate_token
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
@@ -101,11 +106,11 @@ def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password1 = request.POST['password1']
-
         user = auth.authenticate(username=username, password=password1)
 
         if user is not None:
             login(request, user)
+            create_cart(request)
             return redirect('home')
         else:
             messages.error(request, "Bad Credentials!")

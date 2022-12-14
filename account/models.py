@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.username} Profile'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin    # Admin có tất cả quyền trong hệ thống
