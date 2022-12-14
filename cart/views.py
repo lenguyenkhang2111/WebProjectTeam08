@@ -20,11 +20,11 @@ def add_cart(request, course_slug=None):
     current_user = request.user
     course = Course.objects.get(slug=course_slug)
     is_exists_cart_item = CartItem.objects.filter(
-        course=course, cart__user=current_user).exists
+        course=course, cart__user=current_user).first()
 
     if current_user.is_authenticated:
         cart = Cart.objects.get(user=current_user)
-        if not is_exists_cart_item:
+        if is_exists_cart_item is None:
             cart_item = CartItem.objects.create(course=course, cart=cart)
             cart_item.save()
     return redirect('cart')
