@@ -10,12 +10,13 @@ from .models import Cart, CartItem
 def create_cart(request):
     if request.user.is_authenticated:
         cart_exist = Cart.objects.filter(
-            user__username=request.user.username).exists
+            user__username=request.user.username).first()
         if not cart_exist:
             cart = Cart(user=request.user)
             cart.save()
 
 
+@login_required
 def add_cart(request, course_slug=None):
     current_user = request.user
     course = Course.objects.get(slug=course_slug)
@@ -30,12 +31,21 @@ def add_cart(request, course_slug=None):
     return redirect('cart')
 
 
+@login_required
 def remove_cart(request):
     pass
 
 
-def remove_cart_item(request):
-    pass
+@login_required
+def remove_cart_item(request, cart_item_id):
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.get(
+            cart=cart,
+            pk=cart_item_id
+        )
+        cart_item.delete()
+    return redirect('cart')
 
 
 @login_required

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from account.models import Account
 from course.models import Course
@@ -14,3 +15,6 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def get_remove_cart_item_url(self):
+        return reverse('remove_cart_item', args=[self.pk])

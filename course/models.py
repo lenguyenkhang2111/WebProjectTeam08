@@ -62,6 +62,12 @@ class Course(models.Model):
     def get_video_url(self):
         return reverse('course_watching', args=[self.slug])
 
+    def get_instructor_name(self):
+        if self.instructor:
+            return self.instructor.name
+        else:
+            return ""
+
     def add_to_cart_url(self):
         return reverse('add_cart', args=[self.slug])
 
