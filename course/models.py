@@ -28,8 +28,8 @@ class Instructor(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2,
-                                validators=[MinValueValidator(1)])
+    price = models.PositiveIntegerField(null=True,
+                                        validators=[MinValueValidator(0)], blank=True)
     instructor = models.ForeignKey(
         Instructor, on_delete=models.CASCADE, blank=True, null=True)
     language = models.CharField(max_length=50, default='English')

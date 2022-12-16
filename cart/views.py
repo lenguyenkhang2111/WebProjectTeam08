@@ -39,17 +39,21 @@ def remove_cart_item(request):
 
 
 @login_required
-def cart(request):
+def cart(request, total=0):
     try:
         if request.user.is_authenticated:
             cart = Cart.objects.get(user=request.user)
             cart_items = CartItem.objects.filter(cart=cart)
+        if cart_items:
             for cart_item in cart_items:
                 total += cart_item.course.price
+
+        else:
+            total = 0
     except ObjectDoesNotExist:
         pass
     context = {
         'cart_items': cart_items,
-        'total': total if "total" in locals() else "",
+        'total': total,
     }
     return render(request, 'cart/cart.html', context=context)
