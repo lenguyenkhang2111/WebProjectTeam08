@@ -166,7 +166,7 @@
   }
 
   var url = "{% url 'checkout' %}";
-  var total= {{total}};
+  var total = parseFloat("{{ total }}");
   var csrfToken = getCookie("csrftoken");
   var cartID = "{{ cart.pk }}";
   var redirectUrl = "{% url 'course' %}";
@@ -179,35 +179,40 @@
           purchase_units: [
             {
               amount: {
-                value: total // Can also reference a variable or function
+                value: total, // Can also reference a variable or function
               },
             },
           ],
         });
       },
       // Finalize the transaction after payer approval
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
           $.ajax({
-            type: 'POST',
+            type: "POST",
             url: url,
             data: {
-              'csrfmiddlewaretoken': "{{ csrf_token }}",
-              'cartID': cartID,
-              'total': total,
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              cartID: cartID,
+              total: total,
             },
-            success: function(response) {
+            success: function (response) {
               data = response.data;
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+              alert(
+                "Transaction completed by " +
+                  details.payer.name.given_name +
+                  "!"
+              );
               window.location.href = redirectUrl;
             },
-            error: function(response) {
+            error: function (response) {
               error = response.error;
-              alert('Transaction completed, but 1 error occurred: ' + e);
-            }
+              alert("Transaction completed, but 1 error occurred: " + e);
+            },
           });
         });
-      }
-    }).render('#paypal-button-container');
+      },
+    })
+    .render("#paypal-button-container");
 </script>
 {% endblock content %}
