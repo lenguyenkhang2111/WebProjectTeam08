@@ -28,7 +28,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <div class="navbar-nav ms-auto p-4 p-lg-0">
+    <div class="navbar-nav ms-auto p-4 p-lg-0 text-center">
       <a
         href="{% url 'home' %}"
         class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %} active {% endif %}"
@@ -51,34 +51,34 @@
         </div>
       </div>
       <a href="contact.html" class="nav-item nav-link">Contact</a>
-    </div>
-    {% if user.is_authenticated %}
-    <div class="nav-item dropdown">
-      <a
-        href="#"
-        class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-none d-lg-block"
-        data-bs-toggle="dropdown"
-        ><i class="fa-solid fa-user-plus"></i> {{user.first_name}}</a
-      >
-      <div class="dropdown-menu fade-down m-0 text-center container-fluid">
-        <a href="{% url 'cart' %}" class="dropdown-item">My cart</a>
-        <li><hr class="dropdown-divider" /></li>
-        <a href="team.html" class="dropdown-item">My learning</a>
-        <li><hr class="dropdown-divider" /></li>
-        <a href="testimonial.html" class="dropdown-item">Account settings</a>
-        <li><hr class="dropdown-divider" /></li>
-        <a href="testimonial.html" class="dropdown-item">Purchase history</a>
-        <li><hr class="dropdown-divider" /></li>
-        <a href="{% url 'signout' %}" class="dropdown-item">Log out</a>
+      {% if user.is_authenticated %}
+      <div class="nav-item dropdown">
+        <a
+          href="#"
+          class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-lg-block me-0"
+          data-bs-toggle="dropdown"
+          ><i class="fa-solid fa-user-plus"></i> {{user.first_name}}</a
+        >
+        <div class="dropdown-menu fade-down m-0 text-center container-fluid">
+          <a href="{% url 'cart' %}" class="dropdown-item">My cart</a>
+          <li><hr class="dropdown-divider" /></li>
+          <a href="team.html" class="dropdown-item">My learning</a>
+          <li><hr class="dropdown-divider" /></li>
+          <a href="testimonial.html" class="dropdown-item">Account settings</a>
+          <li><hr class="dropdown-divider" /></li>
+          <a href="testimonial.html" class="dropdown-item">Purchase history</a>
+          <li><hr class="dropdown-divider" /></li>
+          <a href="{% url 'signout' %}" class="dropdown-item">Log out</a>
+        </div>
       </div>
+      {% else %}
+      <a
+        href="{% url 'signup' %}"
+        class="nav-link btn btn-primary py-4 px-lg-5 d-lg-block me-0"
+        >Join Now<i class="fa fa-arrow-right ms-3"></i
+      ></a>
+      {% endif %}
     </div>
-    {% else %}
-    <a
-      href="{% url 'signup' %}"
-      class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
-      >Join Now<i class="fa fa-arrow-right ms-3"></i
-    ></a>
-    {% endif %}
   </div>
 </nav>
 <!-- Navbar End -->
