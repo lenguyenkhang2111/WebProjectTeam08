@@ -9,32 +9,38 @@ from .models import Order, OrderDetail
 
 @login_required
 def checkout(request):
-    data = json.load(request)
-    total = data['total']
-    # Lấy bản ghi Cart
-    cart = Cart.objects.get(
-        user=request.user)
-    # Tạo 1 bản ghi Order
-    order = Order(
-        user=request.user,
-        total=total,
-    )
-    order.save()
+    try:
+        data = json.load(request)
+        total = data['total']
+        # Lấy bản ghi Cart
+        cart = Cart.objects.get(
+            user=request.user)
+        # Tạo 1 bản ghi Order
+        order = Order(
+            user=request.user,
+            total=total,
+        )
+        order.save()
 
-    # Chuyển hết CartItem thành OrderDetail
-    cart_items = CartItem.objects.filter(
-        cart__user=request.user, cart=cart)
-    for cart_item in cart_items:
-        order_detail = OrderDetail()
-        order_detail.price = cart_item.course.price
-        order_detail.course = cart_item.course
-        order_detail.order = order
-        order_detail.save()
+        # Chuyển hết CartItem thành OrderDetail
+        cart_items = CartItem.objects.filter(
+            cart__user=request.user, cart=cart)
+        for cart_item in cart_items:
+            order_detail = OrderDetail()
+            order_detail.price = cart_item.course.price
+            order_detail.course = cart_item.course
+            order_detail.order = order
+            order_detail.save()
 
-    # Xóa hết CartItem
-    CartItem.objects.filter(
-        cart__user=request.user, cart=cart).delete()
+        # Xóa hết CartItem
+        CartItem.objects.filter(
+            cart__user=request.user, cart=cart).delete()
 
-    # Gửi thư cảm ơn
-
-    return JsonResponse('payment completed')
+        # Gửi thư cảm ơn
+        # Phản hồi lại Ajax
+        data = {
+            'order_id': order.pk
+        }
+        return JsonResponse({'data': data}, status=200)
+    except Exception as e:
+        return JsonResponse({"error": e}, status=400)
