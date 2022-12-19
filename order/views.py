@@ -35,7 +35,8 @@ def checkout(request):
         # Xóa hết CartItem
         CartItem.objects.filter(
             cart__user=request.user, cart=cart).delete()
-
+        order.payment_status = 'C'
+        order.save()
         # Gửi thư cảm ơn
         # Phản hồi lại Ajax
         data = {
@@ -43,4 +44,5 @@ def checkout(request):
         }
         return JsonResponse({'data': data}, status=200)
     except Exception as e:
+        order.payment_status = 'F'
         return JsonResponse({"error": e}, status=400)
