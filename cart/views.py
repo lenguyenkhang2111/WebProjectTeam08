@@ -65,6 +65,5 @@ def cart(request, total=0):
     context = {
         'cart_items': cart_items,
         'total': total,
-        'cart': cart,
     }
     return render(request, 'cart/cart.html', context=context)
