@@ -53,7 +53,7 @@ def checkout(request):
         # Send email to thank
         sendEmail(request=request, order=order)
 
-        # Response to Ajax
+        # Response to
         data = {
             'order_id': order.pk
         }

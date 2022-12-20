@@ -81,46 +81,46 @@ def signup(request):
         if not username.isalnum():
             messages.error(request, "Username must be Alpha and Numberic!!!")
             is_validated = False
-        if is_validated == False:
-            return redirect('signup')
 
-        myuser = Account.objects.create_user(
-            first_name=first_name, last_name=last_name,  username=username, email=email, password=password1)
+        if is_validated == True:
+            myuser = Account.objects.create_user(
+                first_name=first_name, last_name=last_name,  username=username, email=email, password=password1)
 
-        myuser.save()
+            myuser.save()
 
-        messages.success(
-            request, "Your Account has been successfully create. ")
+            messages.success(
+                request, "Your Account has been successfully create. ")
 
         # Welcome email
-        subject = "Welcome to NAME- Django login"
-        message = "Hello" + myuser.first_name + \
-            "!!! \n" + "Welcome to E-Learning!!! \n Thanks you for registering to our sites \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n E-Learning "
-        from_email = settings.EMAIL_HOST_USER
-        to_list = [myuser.email]
-        send_mail(subject, message, from_email, to_list, fail_silently=True)
+            subject = "Welcome to NAME- Django login"
+            message = "Hello" + myuser.first_name + \
+                "!!! \n" + "Welcome to E-Learning!!! \n Thanks you for registering to our sites \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n E-Learning "
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [myuser.email]
+            send_mail(subject, message, from_email,
+                      to_list, fail_silently=True)
 
         # Email Adress Confirm
 
-        current_site = get_current_site(request)
-        email_subject = "Confirm your email @ hocDjango"
-        message2 = render_to_string('account/email_confirmation.html', {
-            'name': myuser.first_name,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
-            'token': generate_token.make_token(myuser),
-        })
-        email = EmailMessage(
+            current_site = get_current_site(request)
+            email_subject = "Confirm your email @ hocDjango"
+            message2 = render_to_string('account/email_confirmation.html', {
+                'name': myuser.first_name,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
+                'token': generate_token.make_token(myuser),
+            })
+            email = EmailMessage(
 
-            email_subject,
-            message2,
-            settings.EMAIL_HOST_USER,
-            [myuser.email],
-        )
-        email.fail_silently = True
-        email.send()
+                email_subject,
+                message2,
+                settings.EMAIL_HOST_USER,
+                [myuser.email],
+            )
+            email.fail_silently = True
+            email.send()
 
-        return redirect("signin")
+            return redirect("signin")
 
     return render(request, "account/signup.html")
 
