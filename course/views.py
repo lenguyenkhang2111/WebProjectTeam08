@@ -4,6 +4,8 @@ from django.urls import reverse
 from course.models import Category, Course
 from cart.models import Cart, CartItem
 from django.db.models import Q
+
+from order.models import OrderDetail
 # Create your views here.
 
 
@@ -21,12 +23,15 @@ def course(request, category_slug=None):
     paginator = Paginator(courses, 6)
     paged_courses = paginator.get_page(page)
     course_count = courses.count()
-
+    # Get list of purchased courses
+    purchased_course = OrderDetail.objects.filter(
+        order__user=request.user, order__payment_status='C')
     context = {
         'courses': paged_courses,
         'course_count': course_count,
         'category': category,
-        'course_url': course_url
+        'course_url': course_url,
+        'purchased_course': purchased_course,
     }
     return render(request, 'course/course.html', context=context)
 
