@@ -15,9 +15,10 @@
       rel="stylesheet"
       href="{% static 'account/css/style_account.css' %}"
     />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </head>
   <body>
-    {% for message in messages %}
+    {% comment %} {% for message in messages %}
     <div
       class="alert alert-{{ message.tags }} alert-dismissible fade show"
       role="alert"
@@ -33,7 +34,23 @@
       </button>
     </div>
 
-    {% endfor %}
+    {% endfor %} {% endcomment %}
+    <!--break-->
+
+    {% if messages %}
+    <script>
+      {% for message in messages %}
+      swal({{% if message.tags == success %}
+      title: "Good job!",
+      icon: "success",
+      {% else %}
+      title: "Error!",
+      icon: "error",
+      {% endif %}
+      text: "{{message}}" });
+      {% endfor %}
+    </script>
+    {% endif %}
 
     <form action="{% url 'signup' %}" method="post">
       {% csrf_token %}

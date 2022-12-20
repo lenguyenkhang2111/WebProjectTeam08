@@ -3,6 +3,7 @@
 
 # Create your views here.
 
+import time
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from account.models import Account
@@ -41,22 +42,46 @@ def signup(request):
         password2 = request.POST['password2']
 
         # neu đã có username
-        if Account.objects.filter(username=username):
-            messages.error(
-                request, "User name already exist!!! Please try some other username")
-            return redirect('signup')
-        if Account.objects.filter(email=email):
-            messages.error(request, "Email already exist!!!")
-            return redirect('signup')
-
+        # try:
+        #     if Account.objects.get(username=username):
+        #         messages.error(
+        #             request, "User name already exist!!! Please try some other username")
+        #         return redirect('signup')
+        #     if Account.objects.get(email=email):
+        #         messages.error(request, "Email already exist!!!")
+        #         return redirect('signup')
+        # except Exception:
+        #     pass
+        # if len(username) > 10:
+        #     messages.error(request, "Username must be under 10 characters")
+        #     return redirect('signup')
+        # if password1 != password2:
+        #     messages.error(request, "Password didn't match!!!")
+        #     return redirect('signup')
+        # if not username.isalnum():
+        #     messages.error(request, "Username must be Alpha and Numberic!!!")
+        #     return redirect('signup')
+        is_validated = True
+        try:
+            if Account.objects.get(username=username):
+                messages.error(
+                    request, "User name already exist!!! Please try some other username")
+                is_validated = False
+            if Account.objects.get(email=email):
+                messages.error(request, "Email already exist!!!")
+                is_validated = False
+        except Exception:
+            pass
         if len(username) > 10:
             messages.error(request, "Username must be under 10 characters")
-
+            is_validated = False
         if password1 != password2:
-            messages.error(request, "Password didn't match!!!")
-
+            messages.error(request, "Password did not match!!!")
+            is_validated = False
         if not username.isalnum():
-            messages.error(request, "Username must be Alpha_Numberic!!!")
+            messages.error(request, "Username must be Alpha and Numberic!!!")
+            is_validated = False
+        if is_validated == False:
             return redirect('signup')
 
         myuser = Account.objects.create_user(
@@ -70,7 +95,7 @@ def signup(request):
         # Welcome email
         subject = "Welcome to NAME- Django login"
         message = "Hello" + myuser.first_name + \
-            "!!! \n" + "Welcome to NAME!!! \n Thanks you buying our court \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n NAME "
+            "!!! \n" + "Welcome to E-Learning!!! \n Thanks you for registering to our sites \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n E-Learning "
         from_email = settings.EMAIL_HOST_USER
         to_list = [myuser.email]
         send_mail(subject, message, from_email, to_list, fail_silently=True)

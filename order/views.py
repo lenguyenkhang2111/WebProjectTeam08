@@ -1,10 +1,23 @@
+from email.message import EmailMessage
 import json
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from cart.models import Cart, CartItem
 from .models import Order, OrderDetail
+from django.template.loader import render_to_string
 # Create your views here.
+
+
+def sendEmail(request, order):
+    mail_subject = 'Thank you for your payment!'
+    message = render_to_string('order/order_received_email.html', {
+        'user': request.user,
+        'order': order
+    })
+    to_email = request.user.email
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()
 
 
 @login_required
@@ -12,17 +25,17 @@ def checkout(request):
     try:
         data = json.load(request)
         total = data['total']
-        # Lấy bản ghi Cart
+        # Get current Cart
         cart = Cart.objects.get(
             user=request.user)
-        # Tạo 1 bản ghi Order
+        # Create new Order
         order = Order(
             user=request.user,
             total=total,
         )
         order.save()
 
-        # Chuyển hết CartItem thành OrderDetail
+        # Convert CartItem into OrderDetail
         cart_items = CartItem.objects.filter(
             cart__user=request.user, cart=cart)
         for cart_item in cart_items:
@@ -32,13 +45,15 @@ def checkout(request):
             order_detail.order = order
             order_detail.save()
 
-        # Xóa hết CartItem
+        # Clean CartItems
         CartItem.objects.filter(
             cart__user=request.user, cart=cart).delete()
         order.payment_status = 'C'
         order.save()
-        # Gửi thư cảm ơn
-        # Phản hồi lại Ajax
+        # Send email to thank
+        sendEmail(request=request, order=order)
+
+        # Response to Ajax
         data = {
             'order_id': order.pk
         }
@@ -46,3 +61,7 @@ def checkout(request):
     except Exception as e:
         order.payment_status = 'F'
         return JsonResponse({"error": e}, status=400)
+
+
+def payment_history(request):
+    pass
