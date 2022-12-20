@@ -182,13 +182,20 @@
     })
       .then((response) => response.json())
       .then((data) => {
-        alert(
-          "Transaction completed by " + details.payer.name.given_name + "!"
-        );
-        window.location.href = redirectUrl;
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "success"
+        ).then((value) => {
+          window.location.href = redirectUrl;
+        });
       })
       .catch((error) => {
-        alert("Transaction is faild, error:", error);
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "error"
+        );
       });
   }
   paypal

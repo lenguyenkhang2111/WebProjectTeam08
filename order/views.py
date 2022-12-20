@@ -3,20 +3,21 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from WebProjectTeam08 import settings
 from cart.models import Cart, CartItem
 from .models import Order, OrderDetail
 from django.template.loader import render_to_string
 # Create your views here.
 
 
-def sendEmail(request, order):
+def sendEmail(request):
     mail_subject = 'Thank you for your payment!'
     message = render_to_string('order/order_received_email.html', {
-        'user': request.user,
-        'order': order
+        'user': request.user
     })
     to_email = request.user.email
-    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email = EmailMessage(mail_subject, message,
+                              settings.EMAIL_HOST_USER, to=[to_email], fail_silently=True)
     send_email.send()
 
 
@@ -51,13 +52,10 @@ def checkout(request):
         order.payment_status = 'C'
         order.save()
         # Send email to thank
-        sendEmail(request=request, order=order)
+        # sendEmail(request)
 
         # Response to
-        data = {
-            'order_id': order.pk
-        }
-        return JsonResponse({'data': data}, status=200)
+        return JsonResponse({'data': 'Thanks'}, status=200)
     except Exception as e:
         order.payment_status = 'F'
         return JsonResponse({"error": e}, status=400)

@@ -33,7 +33,7 @@ from django.contrib.auth.decorators import login_required
 
 def signup(request):
     if request.method == "POST":
-        # username = request.POST.get('username')
+
         username = request.POST['username']
         first_name = request.POST['fname']
         last_name = request.POST['lname']
@@ -41,7 +41,6 @@ def signup(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
-        # neu đã có username
         # try:
         #     if Account.objects.get(username=username):
         #         messages.error(
@@ -111,7 +110,6 @@ def signup(request):
                 'token': generate_token.make_token(myuser),
             })
             email = EmailMessage(
-
                 email_subject,
                 message2,
                 settings.EMAIL_HOST_USER,

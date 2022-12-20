@@ -27,11 +27,11 @@
            <option class="bg-light text-dark" {% if request.path == course_url %} selected {% endif %} value="{{course_url}}">
             All
           </option>
-          {%for category in links%}
+          {% for category in links%}
           <option class="bg-light text-dark" {% if request.path == category.get_url %} selected {% endif %} value="{{category.get_url}}">
             {{category.title}}
           </option>
-          {%endfor%}
+          {% endfor %}
         </select>
         </div>
         <div class="col-md-3">
@@ -67,19 +67,19 @@
                 style="border-radius: 30px 0 0 30px"
                 >Read More</a
               >
-              {% if course not in purchased_course.course  %}
+              {% if course  in purchased_courses  %}
               <a
-                href="{{course.add_to_cart_url}}"
-                class="flex-shrink-0 btn btn-sm btn-primary px-3"
-                style="border-radius: 0 30px 30px 0"
-                >Add to cart</a
+              href="{{course.get_video_url}}"
+              class="flex-shrink-0 btn btn-sm btn-danger px-3"
+              style="border-radius: 0 30px 30px 0"
+              >Learn now</a
               >
               {% else %}
-              <a
-                href="{{course.get_video_url}}"
-                class="flex-shrink-0 btn btn-sm btn-primary px-3"
+               <a
+                href="{{course.add_to_cart_url}}"
+                class="flex-shrink-0 btn btn-sm btn-secondary px-3"
                 style="border-radius: 0 30px 30px 0"
-                >Learn now</a
+                >Add to cart</a
               >
               {% endif %}
             </div>
