@@ -26,6 +26,9 @@ class Order(models.Model):
     def get_payment_status(self):
         return self.get_payment_status_display()
 
+    def get_order_details(self):
+        return self.orderdetail_set.all()
+
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
