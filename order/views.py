@@ -61,5 +61,13 @@ def checkout(request):
         return JsonResponse({"error": e}, status=400)
 
 
-def payment_history(request):
-    pass
+@login_required
+def payment_history(request, total_paid=0):
+    orders = Order.objects.filter(user=request.user)
+    for order in orders:
+        total_paid += order.total
+    context = {
+        'orders': orders,
+        'total_paid': total_paid
+    }
+    return render(request, 'order/payment_history.html', context=context)
