@@ -24,12 +24,15 @@ def course(request, category_slug=None):
     paged_courses = paginator.get_page(page)
     course_count = courses.count()
     # Get list of purchased courses
-    purchased_orders = OrderDetail.objects.filter(
-        order__user=request.user, order__payment_status='C')
-    if purchased_orders:
-        for item in purchased_orders:
-            purchased_courses = []
-            purchased_courses.append(item.course)
+    if request.user.is_authenticated:
+        purchased_orders = OrderDetail.objects.filter(
+            order__user=request.user, order__payment_status='C')
+        if purchased_orders:
+            for item in purchased_orders:
+                purchased_courses = []
+                purchased_courses.append(item.course)
+        else:
+            purchased_courses = None
     else:
         purchased_courses = None
 

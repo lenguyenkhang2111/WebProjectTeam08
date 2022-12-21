@@ -34,15 +34,9 @@
         class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %} active {% endif %}"
         >Home</a
       >
-      <a href="about.html" class="nav-item nav-link">About</a>
-      <a
-        href="{% url 'course' %}"
-        class="nav-item nav-link {% if request.resolver_match.url_name == 'course' %} active {% endif %}"
-        >Courses</a
-      >
       <div class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-          >Pages</a
+          >Categories</a
         >
         <div class="dropdown-menu fade-down m-0">
           <a href="team.html" class="dropdown-item">Our Team</a>
@@ -50,6 +44,11 @@
           <a href="404.html" class="dropdown-item">404 Page</a>
         </div>
       </div>
+      <a
+        href="{% url 'course' %}"
+        class="nav-item nav-link {% if request.resolver_match.url_name == 'course' %} active {% endif %}"
+        >Courses</a
+      >
       <a href="contact.html" class="nav-item nav-link">Contact</a>
       {% if user.is_authenticated %}
       <div class="nav-item dropdown">
