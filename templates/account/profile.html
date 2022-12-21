@@ -53,37 +53,20 @@
                   style="
                     border-top-left-radius: 0.5rem;
                     border-bottom-left-radius: 0.5rem;
-                  "
-                >
-                  {% comment %} <img
-                    src="{{user.profile.image.url}}"
-                    alt="Avatar"
-                    class="img-fluid my-5 border border-dark"
-                    style="width: 150px; border-radius: 70px"
-                  /> {% endcomment %}
-                  
+                  ">
                   <img
-                  {% if  user.profile.image %}
+                  {% if  user.profile.image.url %}
                     src="{{user.profile.image.url}}"
-                    alt="Avatar"
-                    class="img-fluid my-5 border border-dark"
+                    alt="Profile"
+                    class="img-fluid my-5"
                     style="width: 150px; border-radius: 70px"
                   {% else %}
-                    src="{% static 'general\img\doras.png' %}"
+                    src="{% static 'general/img/doras.png' %}"
                     alt="Avatar"
                     class="img-fluid my-5"
                     style="width: 150px; border-radius: 70px"
                   {% endif %}
                   />
-                  
-                  {% comment %} <img
-                    src="{% static 'general\image\doras.png' %}"
-                    alt="Avatar"
-                    class="img-fluid my-5 border border-dark"
-                    style="width: 150px; border-radius: 70px"
-                  />
-                  {% endif %} {% endcomment %}
-
                   <h5>{{user.username}}</h5>
                   <i class="zmdi zmdi-edit mb-5"></i>
                 </div>
@@ -123,7 +106,7 @@
                       ></a>
                       <a href="#!"><i class="zmdi zmdi-instagram fa-lg"></i></a>
                     </div>
-                      {% comment %} <form method="POST" enctype="multipart/form-data">
+                      <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %} 
                         <div class="signin-form">
                             {% crispy u_form %} 
@@ -132,7 +115,7 @@
                             <button type="submit" class="form-submit" >Update</button>
                           </div>
                         </div>
-                      </form>  {% endcomment %}
+                      </form>  
                     </div>
                   </div>
                 </div>
