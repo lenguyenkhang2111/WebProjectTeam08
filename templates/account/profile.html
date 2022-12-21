@@ -1,4 +1,4 @@
-{% load static %}
+{% extends 'base.html' %} {% block content %}{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -42,7 +42,7 @@
     </div>
     {% endfor %}
 
-    <section class="vh-100" style="background-color: #f4f5f7">
+    <section class="vh-auto">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col col-lg-6 mb-4 mb-lg-0">
@@ -56,13 +56,12 @@
                   "
                 >
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                    src="{{user.profile.image.url}}"
                     alt="Avatar"
                     class="img-fluid my-5"
-                    style="width: 80px"
+                    style="width: 150px; border-radius: 70px"
                   />
-                  <h5>Marie Horwitz</h5>
-                  <p>Web Designer</p>
+                  <h5>{{user.username}}</h5>
                   <i class="zmdi zmdi-edit mb-5"></i>
                 </div>
                 <div class="col-md-8">
@@ -72,23 +71,24 @@
                     <div class="row pt-1">
                       <div class="col-6 mb-3">
                         <h6>Email</h6>
-                        <p class="text-muted">info@example.com</p>
+                        <p class="text-muted">{{user.email}}</p>
                       </div>
                       <div class="col-6 mb-3">
                         <h6>Phone</h6>
-                        <p class="text-muted">123 456 789</p>
+                        <p class="text-muted">{{user.phone}}</p>
                       </div>
                     </div>
-                    <h6>Projects</h6>
                     <hr class="mt-0 mb-4" />
                     <div class="row pt-1">
                       <div class="col-6 mb-3">
-                        <h6>Recent</h6>
-                        <p class="text-muted">Lorem ipsum</p>
+                        <h6>Date of Birth</h6>
+                        <p class="text-muted">{{user.birth_date}}</p>
                       </div>
                       <div class="col-6 mb-3">
-                        <h6>Most Viewed</h6>
-                        <p class="text-muted">Dolor sit amet</p>
+                        <h6>Name</h6>
+                        <p class="text-muted">
+                          {{user.first_name}} {{user.last_name}}
+                        </p>
                       </div>
                     </div>
                     <div class="d-flex justify-content-start">
@@ -123,3 +123,4 @@
     <!-- Template created and distributed by Colorlib -->
   </body>
 </html>
+{% endblock content %}
