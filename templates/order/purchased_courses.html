@@ -7,11 +7,15 @@
         Courses
       </h6>
       {% if category == None %}
-      <h1 class="mb-4">Your courses</h1>
+      <div
+        class="mb-4 progress-bar bg-danger progress-bar-striped progress-bar-animated rounded-pill"
+      >
+        <h1 class="text-light">My learning</h1>
+      </div>
       {% else %}
       <h1 class="mb-5">{{category.title}} Courses</h1>
       {% endif %}
-      <h4 class="mb-4">You bought ({{course_count}}) courses</h4>
+      <h4 class="mb-4">You purchased ({{course_count}}) courses</h4>
     </div>
     <div class="row row-cols-lg-4 row-cols-md-2 g-4 justify-content-center">
       {% if courses %}{% for course in courses %}
