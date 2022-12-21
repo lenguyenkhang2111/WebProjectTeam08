@@ -1,5 +1,6 @@
 from email.message import EmailMessage
 import json
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -71,3 +72,29 @@ def payment_history(request, total_paid=0):
         'total_paid': total_paid
     }
     return render(request, 'order/payment_history.html', context=context)
+
+
+@login_required
+def purchased_courses(request):
+    purchased_orders = OrderDetail.objects.all().filter(
+        order__user=request.user, order__payment_status='C')
+    if purchased_orders:
+        for item in purchased_orders:
+            courses = []
+            courses.append(item.course)
+    else:
+        courses = None
+    if courses != None:
+        page = request.GET.get('page')
+        page = page or 1
+        paginator = Paginator(courses, 6)
+        paged_courses = paginator.get_page(page)
+        course_count = len(courses)
+    else:
+        paged_courses = 0
+        course_count = 0
+    context = {
+        'courses': paged_courses,
+        'course_count': course_count,
+    }
+    return render(request, 'order/purchased_courses.html', context=context)
