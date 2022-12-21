@@ -34,22 +34,23 @@
         class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %} active {% endif %}"
         >Home</a
       >
-      <a href="about.html" class="nav-item nav-link">About</a>
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+          >Categories</a
+        >
+        <div class="dropdown-menu fade-down m-0 text-center">
+          {% for category in links%}
+          <a href="{{category.get_url}}" class="dropdown-item"
+            >{{category.title}}</a
+          >
+          {% endfor %}
+        </div>
+      </div>
       <a
         href="{% url 'course' %}"
         class="nav-item nav-link {% if request.resolver_match.url_name == 'course' %} active {% endif %}"
         >Courses</a
       >
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-          >Pages</a
-        >
-        <div class="dropdown-menu fade-down m-0">
-          <a href="team.html" class="dropdown-item">Our Team</a>
-          <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-          <a href="404.html" class="dropdown-item">404 Page</a>
-        </div>
-      </div>
       <a href="contact.html" class="nav-item nav-link">Contact</a>
       {% if user.is_authenticated %}
       <div class="nav-item dropdown">
@@ -62,11 +63,17 @@
         <div class="dropdown-menu fade-down m-0 text-center container-fluid">
           <a href="{% url 'cart' %}" class="dropdown-item">My cart</a>
           <li><hr class="dropdown-divider" /></li>
-          <a href="team.html" class="dropdown-item">My learning</a>
+          <a href="{% url 'purchased_courses' %}" class="dropdown-item"
+            >My learning</a
+          >
           <li><hr class="dropdown-divider" /></li>
-          <a href="testimonial.html" class="dropdown-item">Account settings</a>
+          <a href="{% url 'profile' %}" class="dropdown-item"
+            >Account settings</a
+          >
           <li><hr class="dropdown-divider" /></li>
-          <a href="testimonial.html" class="dropdown-item">Purchase history</a>
+          <a href="{% url 'payment_history' %}" class="dropdown-item"
+            >Payment history</a
+          >
           <li><hr class="dropdown-divider" /></li>
           <a href="{% url 'signout' %}" class="dropdown-item">Log out</a>
         </div>
