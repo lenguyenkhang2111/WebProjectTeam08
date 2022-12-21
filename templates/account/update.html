@@ -63,7 +63,7 @@
                   /> {% endcomment %}
                   
                   <img
-                  {% if  user.profile.image %}
+                  {% if  user.profile.image.url  %}
                     src="{{user.profile.image.url}}"
                     alt="Avatar"
                     class="img-fluid my-5 border border-dark"
@@ -123,17 +123,17 @@
                       ></a>
                       <a href="#!"><i class="zmdi zmdi-instagram fa-lg"></i></a>
                     </div>
-                      {% comment %} <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %} 
-                        <div class="signin-form">
-                            {% crispy u_form %} 
-                            {% crispy p_form %} 
-                          <div class="form-group form-button">
-                            <button type="submit" class="form-submit" >Update</button>
-                          </div>
-                        </div>
-                      </form>  {% endcomment %}
-                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                      {% csrf_token %} 
+                  <div class="signin-form">
+                    {% crispy u_form %} 
+                    {% crispy p_form %} 
+                       <div class="form-group form-button">
+                        <button type="submit" class="form-submit" >Update</button>
+                       </form> 
+                      </div>
+                    
+                </form>
                   </div>
                 </div>
               </div>
