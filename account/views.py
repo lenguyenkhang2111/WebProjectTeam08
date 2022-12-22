@@ -25,7 +25,7 @@ from . tokens import generate_token
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserUpdateForm, ProfileUpdateForm
+from account.forms import UserUpdateForm, ProfileUpdateForm
 
 # Create your views here.
 
@@ -167,6 +167,11 @@ def activate(request, uidb64, token):
 
 @login_required
 def profile(request):
+    return render(request, 'account/profile.html')
+
+
+@login_required
+def update(request):
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(
@@ -184,4 +189,4 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form
     }
-    return render(request, 'account/profile.html', context)
+    return render(request, 'account/update.html', context)

@@ -55,20 +55,14 @@
                     border-bottom-left-radius: 0.5rem;
                   ">
                   <img
-                  {% if  user.profile.image.url %}
                     src="{{user.profile.image.url}}"
                     alt="Profile"
                     class="img-fluid my-5"
                     style="width: 150px; border-radius: 70px"
-                  {% else %}
-                    src="{% static 'general/img/doras.png' %}"
-                    alt="Avatar"
-                    class="img-fluid my-5"
-                    style="width: 150px; border-radius: 70px"
-                  {% endif %}
                   />
                   <h5>{{user.username}}</h5>
-                  <i class="zmdi zmdi-edit mb-5"></i>
+                  <a href="{%url 'update'%}"><i class="zmdi zmdi-edit mb-5"></i></a>
+                  
                 </div>
                 <div class="col-md-8">
                   <div class="card-body p-4">
@@ -106,16 +100,6 @@
                       ></a>
                       <a href="#!"><i class="zmdi zmdi-instagram fa-lg"></i></a>
                     </div>
-                      <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %} 
-                        <div class="signin-form">
-                            {% crispy u_form %} 
-                            {% crispy p_form %} 
-                          <div class="form-group form-button">
-                            <button type="submit" class="form-submit" >Update</button>
-                          </div>
-                        </div>
-                      </form>  
                     </div>
                   </div>
                 </div>

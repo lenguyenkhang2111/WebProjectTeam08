@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block content %}{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FormWizard_v9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+
+    <link
+      rel="stylesheet"
+      href="{% static  'account\fonts\material-icon\css\material-design-iconic-font.css' %}"
+    />
+
+    <!-- boot strap -->
+
+    <link
+      rel="stylesheet"
+      href="{% static 'general\css\bootstrap.min.css' %}"
+    />
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{% static 'account\css\style_profile.css'%}" />
+  </head>
+  <body>
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+
+    <section class="vh-auto">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-lg-6 mb-4 mb-lg-0">
+            <div class="card mb-3" style="border-radius: 0.5rem">
+              <div class="row g-0">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                      <div class="signin-form">
+                        {% crispy u_form %} 
+                        {% crispy p_form %} 
+                      <div class="form-group form-button">
+                            <button type="submit" class="form-submit" >Update</button>
+                      </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="static/account/js/jquery-3.3.1.min.js"></script>
+
+    <!-- JQUERY STEP -->
+    <script src="static/account/js/jquery.steps.js"></script>
+
+    <!-- DATE-PICKER -->
+    <script src="static/account/vendor/date-picker/js/datepicker.js"></script>
+    <script src="static/account/vendor/date-picker/js/datepicker.en.js"></script>
+
+    <script src="static/account/js/main.js"></script>
+
+    <!-- Template created and distributed by Colorlib -->
+  </body>
+</html>
+{% endblock content %}
