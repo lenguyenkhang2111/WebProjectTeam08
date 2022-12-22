@@ -23,6 +23,9 @@ class Order(models.Model):
         max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_STATUS_PENDING)
     user = models.ForeignKey(Account, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return "Order " + str(self.id)
+
     def get_payment_status(self):
         return self.get_payment_status_display()
 
@@ -35,3 +38,6 @@ class OrderDetail(models.Model):
     course = models.ForeignKey(Course, on_delete=models.PROTECT)
     price = models.DecimalField(max_digits=6, decimal_places=2,
                                 validators=[MinValueValidator(1)])
+
+    def __str__(self):
+        return "Order " + str(self.id)
