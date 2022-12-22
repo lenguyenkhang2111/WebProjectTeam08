@@ -48,7 +48,7 @@
           <div class="col col-lg-6 mb-4 mb-lg-0">
             <div class="card mb-3" style="border-radius: 0.5rem">
               <div class="row g-0">
-                  <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %} 
                       <div class="signin-form">
                         {% crispy u_form %} 
@@ -56,6 +56,7 @@
                       <div class="form-group form-button">
                             <button type="submit" class="form-submit" >Update</button>
                       </div>
+                </form>
               </div>
             </div>
           </div>
