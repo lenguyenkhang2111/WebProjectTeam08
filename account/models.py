@@ -43,8 +43,8 @@ class Account(AbstractBaseUser):
     phone = models.CharField(max_length=255)
     birth_date = models.DateField(null=True, blank=True)
     subscription_expired = models.DateField(null=True, blank=True)
-    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="account/image/", null=True, blank=True, quality=100
-                              )
+    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  
+    upload_to="profile_pics", null=True, blank=True, quality=100)
     # REQUIRED_FIELDS
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
