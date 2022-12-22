@@ -10,7 +10,7 @@ class Category(models.Model):
     title = models.CharField(max_length=255)
     best_seller_course = models.ForeignKey(
         'Course', on_delete=models.SET_NULL, null=True, related_name='best_seller', blank=True)
-    slug = models.SlugField(max_length=100, unique=True, null=True, blank=True)
+    slug = models.SlugField(max_length=100, unique=True, null=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -50,10 +50,10 @@ class Course(models.Model):
                                              validators=[MinValueValidator(0), MaxValueValidator(5)], blank=True)
     duration = models.DecimalField(max_digits=6, decimal_places=2,
                                    validators=[MinValueValidator(0)], blank=True, null=True)
-    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="course/course_image/", null=True, blank=True, quality=100
+    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],  upload_to="course/course_image/", null=True, quality=100
                               )
     video = models.FileField(
-        upload_to="course/course_video", null=True, blank=True)
+        upload_to="course/course_video", null=True)
     slug = models.SlugField(max_length=200, unique=True,
                             null=True, blank=True)
 
