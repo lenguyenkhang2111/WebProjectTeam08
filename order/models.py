@@ -38,6 +38,14 @@ class OrderDetail(models.Model):
     course = models.ForeignKey(Course, on_delete=models.PROTECT)
     price = models.DecimalField(max_digits=6, decimal_places=2,
                                 validators=[MinValueValidator(1)])
+    SUBSCRIPTION_TYPE_MONTHLY = 'M'
+    SUBSCRIPTION_TYPE_ANNUALLY = "A"
+    SUBSCRIPTION_TYPE_CHOICES = [
+        (SUBSCRIPTION_TYPE_MONTHLY, 'Monthly'),
+        (SUBSCRIPTION_TYPE_ANNUALLY, 'Annually'),
+    ]
+    subscription_type = models.CharField(
+        max_length=1, choices=SUBSCRIPTION_TYPE_CHOICES, default=SUBSCRIPTION_TYPE_MONTHLY)
 
     def __str__(self):
         return "Order " + str(self.id)
