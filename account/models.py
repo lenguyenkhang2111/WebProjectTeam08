@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django_resized import ResizedImageField
@@ -66,3 +67,9 @@ class Account(AbstractBaseUser):
 
     def full_name(self):
         return self.first_name + " " + self.last_name
+
+    def on_subscription(self):
+        if self.subscription_expired and self.subscription_expired > datetime.date.today():
+            return True
+        else:
+            return False

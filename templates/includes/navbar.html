@@ -54,8 +54,13 @@
         class="nav-item nav-link {% if request.resolver_match.url_name == 'course' %} active {% endif %}"
         >Courses</a
       >
-      <a href="contact.html" class="nav-item nav-link">Contact</a>
-      {% if user.is_authenticated %}
+      {% if request.user.on_subscription == True %}
+      <a
+        href="#"
+        class="nav-link btn btn-warning rounded-pill py-4 px-lg-5 me-0 d-flex flex-column"
+        ><i class="fa-solid fa-crown"></i>VIP</a
+      >
+      {% endif %} {% if user.is_authenticated %}
       <div class="nav-item dropdown">
         <a
           href="#"
