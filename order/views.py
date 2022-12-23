@@ -60,6 +60,7 @@ def checkout(request):
         return JsonResponse({'data': 'Thanks'}, status=200)
     except Exception as e:
         order.payment_status = 'F'
+        order.save()
         return JsonResponse({"error": e}, status=400)
 
 
@@ -103,26 +104,34 @@ def purchased_courses(request):
 
 @login_required
 def subscription_checkout(request):
-    # Loading json from fetch API
-    data = json.load(request)
-    total = data['total']
-    type = data['type']
-    # Create new order record
-    order = Order(
-        user=request.user,
-        total=total,
-    )
-    order.save()
-    # Create new order detail
-    order_detail = OrderDetail()
-    order_detail.order = order
-    current_datetime = datetime.datetime.now()
-    if type == 'M':
-        order.payment_status = 'M'
-        request.user.subscription_expired = current_datetime + ''
-        # Plus 1 month
-    if type == 'A':
-        # Plus 1 year
-        order.payment_status = 'A'
-        request.user.subscription_expired = current_datetime + ''
-    order_detail.save()
+    try:
+        # Loading json from fetch API
+        data = json.load(request)
+        total = data['total']
+        type = data['type']
+        # Create new order record
+        order = Order(
+            user=request.user,
+            total=total,
+        )
+        order.save()
+        # Create new order detail
+        order_detail = OrderDetail()
+        order_detail.order = order
+        current_datetime = datetime.datetime.now()
+        if type == 'M':
+            order.payment_status = 'M'
+            request.user.subscription_expired = current_datetime + \
+                relativedelta(months=1)
+            # Plus 1 month
+        if type == 'A':
+            # Plus 1 year
+            order.payment_status = 'A'
+            request.user.subscription_expired = current_datetime + \
+                relativedelta(years=1)
+            order.payment_status = 'C'
+            order.save()
+    except Exception:
+        order.payment_status = 'F'
+        order.save()
+        return JsonResponse({"error": e}, status=400)

@@ -5,10 +5,10 @@ from import_export.admin import ImportExportModelAdmin
 
 
 @admin.register(Cart)
-class CategoryAdmin(ImportExportModelAdmin):
+class CartAdmin(ImportExportModelAdmin):
     pass
 
 
 @admin.register(CartItem)
-class CategoryAdmin(ImportExportModelAdmin):
+class CartItemAdmin(ImportExportModelAdmin):
     pass

@@ -16,7 +16,7 @@ class OrderAdmin(ImportExportModelAdmin):
 
 
 @admin.register(OrderDetail)
-class OrderAdmin(ImportExportModelAdmin):
+class OrderDetailAdmin(ImportExportModelAdmin):
     list_display = ('pk', 'order', 'course', 'price')
 
     @admin.display(description='Order Item')
