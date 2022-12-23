@@ -79,7 +79,7 @@ def payment_history(request, total_paid=0):
 @login_required
 def purchased_courses(request):
     purchased_orders = OrderDetail.objects.all().filter(
-        order__user=request.user, order__payment_status='C')
+        order__user=request.user, order__payment_status='C', subscription_type__isnull=True)
     if purchased_orders:
         for item in purchased_orders:
             courses = []

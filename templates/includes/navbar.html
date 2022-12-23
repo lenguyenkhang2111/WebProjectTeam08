@@ -56,11 +56,15 @@
       >
       {% if request.user.on_subscription == True %}
       <button
-        href="#"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#subscriptionModal"
         class="nav-link btn btn-warning rounded-pill my-3 my-lg-0 py-4 px-lg-5 me-0 d-lg-block"
       >
         <i class="fa-solid fa-crown"> </i>VIP
       </button>
+      <!--Modal subscription-->
+
       {% endif %} {% if user.is_authenticated %}
       <div class="nav-item dropdown">
         <a
@@ -98,3 +102,31 @@
   </div>
 </nav>
 <!-- Navbar End -->
+<div class="modal fade" id="subscriptionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Welcome back, King!</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Your subscription will be expired at
+        {{request.user.subscription_expired}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Okay
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
