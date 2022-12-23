@@ -27,8 +27,13 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('cart/', include('cart.urls')),
     path('order/', include('order.urls')),
+    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '2203332086494733'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '717d1c5b2309597b33da201b7993461b'  # App Secret
