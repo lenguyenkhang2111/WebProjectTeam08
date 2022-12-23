@@ -134,6 +134,7 @@ def signin(request):
         if user is not None:
             login(request, user)
             create_cart(request)
+            messages.success(request, "Bad Credentials!")
             return redirect('home')
         else:
             messages.error(request, "Bad Credentials!")
