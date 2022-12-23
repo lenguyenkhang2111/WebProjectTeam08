@@ -54,7 +54,6 @@ def checkout(request):
         order.save()
         # Send email to thank
         # sendEmail(request)
-
         # Response to
         return JsonResponse({'data': 'Thanks'}, status=200)
     except Exception as e:
@@ -98,3 +97,27 @@ def purchased_courses(request):
         'course_count': course_count,
     }
     return render(request, 'order/purchased_courses.html', context=context)
+
+
+@login_required
+def subscription_checkout(request):
+    # Loading json from fetch API
+    data = json.load(request)
+    total = data['total']
+    type = data['type']
+    # Create new order record
+    order = Order(
+        user=request.user,
+        total=total,
+    )
+    order.save()
+    # Create new order detail
+    order_detail = OrderDetail()
+    order_detail.order = order
+    if type == 'M':
+        order.payment_status = 'M'
+        # Plus 1 month
+    if type == 'A':
+        # Plus 1 year
+        order.payment_status = 'A'
+    order_detail.save()

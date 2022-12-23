@@ -6,7 +6,6 @@ from cart.models import Cart, CartItem
 from django.db.models import Q
 
 from order.models import OrderDetail
-# Create your views here.
 
 
 def course(request, category_slug=None):

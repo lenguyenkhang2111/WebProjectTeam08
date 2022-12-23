@@ -6,9 +6,9 @@ from django_resized import ResizedImageField
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
 
-        # Tạo đối tượng user mới
+        # Create new user objects
         user = self.model(
-            # Chuyển email về dạng bình thường
+            # Normalize email
             email=self.normalize_email(email=email),
             username=username,
             first_name=first_name,

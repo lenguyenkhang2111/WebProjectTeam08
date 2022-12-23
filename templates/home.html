@@ -500,9 +500,10 @@
 
   var url = "{% url 'checkout' %}";
   var total = 300;
+  var type = "M";
   var csrftoken = getCookie("csrftoken");
   var redirectUrl = "{% url 'payment_history' %}";
-  var data = { total: total };
+  var data = { total: total, type: type };
   function completeOrder(details) {
     fetch(url, {
       method: "POST",
@@ -635,9 +636,10 @@
 
   var url = "{% url 'checkout' %}";
   var total = 1000;
+  var type = "A";
   var csrftoken = getCookie("csrftoken");
   var redirectUrl = "{% url 'payment_history' %}";
-  var data = { total: total };
+  var data = { total: total, type: type };
   function completeOrder(details) {
     fetch(url, {
       method: "POST",
