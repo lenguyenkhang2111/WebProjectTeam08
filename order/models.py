@@ -49,3 +49,6 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return "Order " + str(self.id)
+
+    def get_subscription_type(self):
+        return self.get_subscription_type_display() + str(' Subscription')

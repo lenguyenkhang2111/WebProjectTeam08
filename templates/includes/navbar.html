@@ -55,11 +55,12 @@
         >Courses</a
       >
       {% if request.user.on_subscription == True %}
-      <a
+      <button
         href="#"
-        class="nav-link btn btn-warning rounded-pill py-4 px-lg-5 me-0 d-flex flex-column"
-        ><i class="fa-solid fa-crown"></i>VIP</a
+        class="nav-link btn btn-warning rounded-pill my-3 my-lg-0 py-4 px-lg-5 me-0 d-lg-block"
       >
+        <i class="fa-solid fa-crown"> </i>VIP
+      </button>
       {% endif %} {% if user.is_authenticated %}
       <div class="nav-item dropdown">
         <a
