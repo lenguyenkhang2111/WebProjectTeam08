@@ -1,3 +1,4 @@
+import datetime
 from email.message import EmailMessage
 import json
 from django.core.paginator import Paginator
@@ -114,10 +115,13 @@ def subscription_checkout(request):
     # Create new order detail
     order_detail = OrderDetail()
     order_detail.order = order
+    current_datetime = datetime.datetime.now()
     if type == 'M':
         order.payment_status = 'M'
+        request.user.subscription_expired = current_datetime + ''
         # Plus 1 month
     if type == 'A':
         # Plus 1 year
         order.payment_status = 'A'
+        request.user.subscription_expired = current_datetime + ''
     order_detail.save()
