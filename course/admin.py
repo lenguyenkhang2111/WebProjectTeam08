@@ -1,16 +1,17 @@
 from django.contrib import admin
-from . import models
+from .models import Category, Course
 from course.models import Category, Course
 from django.db.models.aggregates import Count
+from import_export.admin import ImportExportModelAdmin
 
 
 class CourseInline(admin.StackedInline):
-    model = models.Course
+    model = Course
     extra = 0
 
 
-@admin.register(models.Category)
-class CategoryAdmin(admin.ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(ImportExportModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title',  'best_seller_course', 'courses_count')
     inlines = [CourseInline]
@@ -24,8 +25,8 @@ class CategoryAdmin(admin.ModelAdmin):
         return super().get_queryset(request).annotate(courses_count=Count('course'))
 
 
-@admin.register(models.Course)
-class CourseAdmin(admin.ModelAdmin):
+@admin.register(Course)
+class CourseAdmin(ImportExportModelAdmin):
     list_display = ('title', 'description', 'price', 'category', 'course_status',
                     'instructor', 'lesson_number', 'course_status', 'rated', )
 

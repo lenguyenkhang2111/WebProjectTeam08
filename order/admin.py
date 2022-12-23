@@ -1,9 +1,10 @@
 from django.contrib import admin
-from . import models
+from .models import Order, OrderDetail
+from import_export.admin import ImportExportModelAdmin
 
 
-@admin.register(models.Order)
-class OrderAdmin(admin.ModelAdmin):
+@admin.register(Order)
+class OrderAdmin(ImportExportModelAdmin):
     list_display = ('pk', 'user', 'total',
                     'payment_status', 'placed_at')
 
@@ -14,8 +15,8 @@ class OrderAdmin(admin.ModelAdmin):
         return "Order " + str(obj.pk)
 
 
-@admin.register(models.OrderDetail)
-class OrderAdmin(admin.ModelAdmin):
+@admin.register(OrderDetail)
+class OrderAdmin(ImportExportModelAdmin):
     list_display = ('pk', 'order', 'course', 'price')
 
     @admin.display(description='Order Item')

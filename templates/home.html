@@ -498,7 +498,7 @@
     return cookieValue;
   }
 
-  var url = "{% url 'checkout' %}";
+  var url = "{% url 'subscription_checkout' %}";
   var total = 300;
   var type = "M";
   var csrftoken = getCookie("csrftoken");
@@ -634,7 +634,7 @@
     return cookieValue;
   }
 
-  var url = "{% url 'checkout' %}";
+  var url = "{% url 'subscription_checkout' %}";
   var total = 1000;
   var type = "A";
   var csrftoken = getCookie("csrftoken");

@@ -169,7 +169,7 @@
   var url = "{% url 'checkout' %}";
   var total = parseFloat("{{ total }}");
   var csrftoken = getCookie("csrftoken");
-  var redirectUrl = "{% url 'course' %}";
+  var redirectUrl = "{% url 'payment_history' %}";
   var data = { total: total };
   function completeOrder(details) {
     fetch(url, {
