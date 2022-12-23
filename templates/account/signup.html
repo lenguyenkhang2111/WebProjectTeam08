@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=h3, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'account/css/style_account.css' %}"
+    />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+    {% if messages %}
+    <script>
+      {% for message in messages %}
+      swal({{% if message.tags == 'success' %}
+      title: "Good job!",
+      icon: "success",
+      {% else %}
+      title: "Error!",
+      icon: "error",
+      {% endif %}
+      text: "{{message}}" });
+      {% endfor %}
+    </script>
+    {% endif %}
+
+    <form action="{% url 'signup' %}" method="post">
+      {% csrf_token %}
+
+      <section class="signup">
+        <div class="container">
+          <div class="signup-content">
+            <div class="signup-form">
+              <h2 class="form-title">Sign up</h2>
+              <form method="POST" class="register-form" id="register-form">
+                <div class="form-group">
+                  <label for="name"
+                    ><i class="zmdi zmdi-account material-icons-name"></i
+                  ></label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Create a username (Letter and number only)"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="FirstName"
+                    ><i class="zmdi zmdi-account material-icons-name"></i
+                  ></label>
+                  <input
+                    type="text"
+                    id="fname"
+                    name="fname"
+                    placeholder="First name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="LastName"
+                    ><i class="zmdi zmdi-account material-icons-name"></i
+                  ></label>
+                  <input
+                    type="text"
+                    id="lname"
+                    name="lname"
+                    placeholder="Last name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email"><i class="zmdi zmdi-email"></i></label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Your email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                  <input
+                    type="password"
+                    id="password1"
+                    name="password1"
+                    placeholder="Create your password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="re-pass"
+                    ><i class="zmdi zmdi-lock-outline"></i
+                  ></label>
+                  <input
+                    type="password"
+                    id="password2"
+                    name="password2"
+                    placeholder="Confirm your password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="checkbox"
+                    name="agree-term"
+                    id="agree-term"
+                    class="agree-term"
+                  />
+                  <label for="agree-term" class="label-agree-term"
+                    ><span><span></span></span>I agree all statements in
+                    <a href="#" class="term-service">Terms of service</a></label
+                  >
+                </div>
+                <div class="form-group form-button">
+                  <input
+                    type="submit"
+                    name="signup"
+                    id="signup"
+                    class="form-submit"
+                    value="Register"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="signup-image">
+              <figure>
+                <img
+                  src="{% static 'account/img/signup-image.jpg' %}"
+                  alt="sing up image"
+                />
+              </figure>
+              <a href="{% url 'signin' %}" class="signup-image-link"
+                >I am already member</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!-- Courses Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        Courses
+      </h6>
+      {% if category == None %}
+      <div
+        class="mb-4 progress-bar bg-danger progress-bar-striped progress-bar-animated rounded-pill"
+      >
+        <h1 class="text-light">My learning</h1>
+      </div>
+      {% else %}
+      <h1 class="mb-5">{{category.title}} Courses</h1>
+      {% endif %}
+      <h4 class="mb-4">You purchased ({{course_count}}) courses</h4>
+    </div>
+    <div class="row row-cols-lg-4 row-cols-md-2 g-4 justify-content-center">
+      {% if courses %}{% for course in courses %}
+      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="d-flex flex-column course-item bg-light h-100">
+          <div class="position-relative overflow-hidden">
+            <img class="img-fluid" src="{{course.image.url}}" alt="" />
+            <div
+              class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4"
+            >
+              <a
+                href="{{course.get_url}}"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                style="border-radius: 30px 0 0 30px"
+                >Read More</a
+              >
+              <a
+                href="{{course.get_video_url}}"
+                class="flex-shrink-0 btn btn-sm btn-warning px-3"
+                style="border-radius: 0 30px 30px 0"
+                >Learn now</a
+              >
+            </div>
+          </div>
+          <div class="text-center p-4 pb-0 flex-fill">
+            <h3 class="mb-0">${{course.price}}</h3>
+            <div class="mb-3">
+              {% for i in course.rated|center:course.rated%}
+              <small class="fa fa-star text-primary"></small>
+              {% endfor %}
+            </div>
+            <h5 class="mb-4">{{ course.title }}</h5>
+          </div>
+          <div class="d-flex border-top">
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-user-tie text-primary me-2"></i
+              >{{course.instructor}}</small
+            >
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-clock text-primary me-2"></i> {{course.duration}}
+              Hrs</small
+            >
+            <small class="flex-fill text-center py-2"
+              ><i class="fa fa-book-open text-primary me-2"></i
+              >{{course.lesson_number}} lessons
+            </small>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <div class="text-center">
+        <a
+          href="{% url 'course' %}"
+          type="button"
+          class="btn btn-info btn-block btn-lg"
+        >
+          <div class="d-flex justify-content-between">
+            <span>Continue to buy courses</span>
+            <span> <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+          </div>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Courses End -->
+{% if courses %}
+<nav class="mt-4" aria-label="Page navigation sample">
+  <ul class="pagination justify-content-center pagination-lg">
+    {% if courses.has_previous %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'course' %}?page={{courses.previous_page_number}}"
+        >Previous</a
+      >
+    </li>
+    {% endif %}
+    <!-- break -->
+    <!-- Specify the number of pages when it will be wrapped in the '...'-->
+    {% if courses.number|add:'-2' >= 1 %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'course' %}?page={{ courses.number|add:'-2' }}"
+        >&hellip;</a
+      >
+    </li>
+    {% endif %}
+    <!-- break -->
+    {% for page in courses.paginator.page_range %}
+    <!-- break -->
+    {% if courses.number|add:'-1' <= page and page <= courses.number|add:'1' %}
+    <!-- break -->
+    {% if page == courses.number %}
+    <li class="page-item active">
+      <a class="page-link" href="{% url 'course' %}?page={{ page }}"
+        >{{ page }}</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'course' %}?page={{ page }}"
+        >{{ page }}</a
+      >
+    </li>
+    {% endif %} {% endif %} {% endfor %}
+    <!-- break -->
+    {% if courses.number|add:'2' <= courses.paginator.num_pages %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'course' %}?page={{ courses.number|add:'2' }}"
+        >&hellip;</a
+      >
+    </li>
+    {% endif %} {% if courses.has_next %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'course' %}?page={{courses.next_page_number}}"
+        >Next</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %} {% endblock content %}

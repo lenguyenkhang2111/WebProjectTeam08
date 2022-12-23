@@ -1,0 +1,99 @@
+<!-- Navbar Start -->
+{% load static %} {% for message in messages %} {% if messages %}
+<script>
+  {% for message in messages %}
+  swal({{% if message.tags == 'success' %}
+  title: "Good job!",
+  icon: "success",
+  {% else %}
+  title: "Error!",
+  icon: "error",
+  {% endif %}
+  text: "{{message}}" });
+  {% endfor %}
+</script>
+{% endif %} {% endfor %}
+<nav
+  class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
+>
+  <a
+    href="{% url 'home' %}"
+    class="navbar-brand d-flex align-items-center px-4 px-lg-5"
+  >
+    <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>eLEARNING</h2>
+  </a>
+  <button
+    type="button"
+    class="navbar-toggler me-4"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarCollapse"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto p-4 p-lg-0 text-center">
+      <a
+        href="{% url 'home' %}"
+        class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %} active {% endif %}"
+        >Home</a
+      >
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+          >Categories</a
+        >
+        <div class="dropdown-menu fade-down m-0 text-center">
+          {% for category in links%}
+          <a href="{{category.get_url}}" class="dropdown-item"
+            >{{category.title}}</a
+          >
+          {% endfor %}
+        </div>
+      </div>
+      <a
+        href="{% url 'course' %}"
+        class="nav-item nav-link {% if request.resolver_match.url_name == 'course' %} active {% endif %}"
+        >Courses</a
+      >
+      <a href="contact.html" class="nav-item nav-link">Contact</a>
+      {% if user.is_authenticated %}
+          {% if user.is_superuser %}
+          <div class="nav-item dropdown">
+            <div>
+          <a style="background-color: #fffa77; border-color: #fffa77;" href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-lg-block me-0" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-plus"></i>  {{user.first_name}}</a>
+        </div>
+          {% else %}
+          <div class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle btn btn-primary py-4 px-lg-5 d-lg-block me-0" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user"></i> {{user.first_name}}</a>
+          {% endif %}
+          
+        <div class="dropdown-menu fade-down m-0 text-center container-fluid">
+          <a href="{% url 'cart' %}" class="dropdown-item">My cart</a>
+          <li><hr class="dropdown-divider" /></li>
+          <a href="{% url 'purchased_courses' %}" class="dropdown-item"
+            >My learning</a
+          >
+          <li><hr class="dropdown-divider" /></li>
+          <a href="{% url 'profile' %}" class="dropdown-item"
+            >Account settings</a
+          >
+          <li><hr class="dropdown-divider" /></li>
+          <a href="{% url 'payment_history' %}" class="dropdown-item"
+            >Payment history</a
+          >
+          <li><hr class="dropdown-divider" /></li>
+          <a href="{% url 'signout' %}" class="dropdown-item">Log out</a>
+        </div>
+      </div>
+      {% else %}
+      <a
+        href="{% url 'signup' %}"
+        class="nav-link btn btn-primary py-4 px-lg-5 d-lg-block me-0"
+        >Join Now<i class="fa fa-arrow-right ms-3"></i
+      ></a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->

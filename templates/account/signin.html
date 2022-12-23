@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=h3, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Font Icon -->
+    <link
+      rel="stylesheet"
+      href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}"
+    />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="{% static 'account/css/style_account.css' %}" />
+  </head>
+  <body>
+    {% if messages %}
+    <script>
+      {% for message in messages %}
+      swal({{% if message.tags == 'success' %}
+      title: "Good job!",
+      icon: "success",
+      {% else %}
+      title: "Error!",
+      icon: "error",
+      {% endif %}
+      text: "{{message}}" });
+      {% endfor %}
+    </script>
+    {% endif %}
+    <form action="{% url 'signin' %}" method="post">
+     {% csrf_token %}
+      <!-- Sing in  Form -->
+      <section class="sign-in">
+        <div class="container">
+          <div class="signin-content">
+            <div class="signin-image">
+              <figure>
+                <img src="{% static 'account/img/signin-image.jpg' %}" alt="sing up image" />
+              </figure>
+              <a href="{% url 'signup' %}" class="signup-image-link">Create an account</a>
+            </div>
+
+            <div class="signin-form">
+              <h2 class="form-title">Sign in</h2>
+              <form class="main" class="register-form" id="login-form">
+                <div class="form-group">
+                  <label for="your_name"
+                    ><i class="zmdi zmdi-account material-icons-name"></i
+                  ></label for="">
+                  <input
+                   type="text"
+                   id="username"
+                   name="username"
+                   placeholder="Enter your username"
+                   required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                  <input
+                   type="password"
+                   id="password1"
+                   name="password1"
+                   placeholder="Enter your password"
+                   required
+                  />
+                </div>
+                 <div class="form-group form-button">
+                  <button type="submit" class="form-submit" >Login in</button>
+                 </form> 
+                </div>
+              </form>
+              <div class="social-login">
+                <span class="social-label">Or login with</span>
+                <ul class="socials">
+                  <li>
+                    <a href="#"
+                      ><i class="display-flex-center zmdi zmdi-facebook"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      ><i class="display-flex-center zmdi zmdi-twitter"></i
+                    ></a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      ><i class="display-flex-center zmdi zmdi-google"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+  </body>
+</html>

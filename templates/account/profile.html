@@ -1,0 +1,127 @@
+{% extends 'base.html' %} {% block content %}{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FormWizard_v9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+
+    <link
+      rel="stylesheet"
+      href="{% static  'account\fonts\material-icon\css\material-design-iconic-font.css' %}"
+    />
+
+    <!-- boot strap -->
+
+    <link
+      rel="stylesheet"
+      href="{% static 'general\css\bootstrap.min.css' %}"
+    />
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{% static 'account\css\style_profile.css'%}" />
+  </head>
+  <body>
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+
+    <section class="vh-auto">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-lg-6 mb-4 mb-lg-0">
+            <div class="card mb-3" style="border-radius: 0.5rem">
+              <div class="row g-0">
+                <div
+                  class="col-md-4 gradient-custom text-center text-white"
+                  style="
+                    border-top-left-radius: 0.5rem;
+                    border-bottom-left-radius: 0.5rem;
+                  ">
+                  <img
+                    src="{{user.image.url}}"
+                    alt="Profile"
+                    class="img-fluid my-5"
+                    style="width: 150px; border-radius: 70px"
+                  />
+                  <h5>{{user.username}}</h5>
+                  <a href="{%url 'update'%}"><i class="zmdi zmdi-edit mb-5"></i></a>
+                  
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body p-4">
+                    <h6>Information</h6>
+                    <hr class="mt-0 mb-4" />
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>Email</h6>
+                        <p class="text-muted">{{user.email}}</p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Phone</h6>
+                        <p class="text-muted">{{user.phone}}</p>
+                      </div>
+                    </div>
+                    <hr class="mt-0 mb-4" />
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>Date of Birth</h6>
+                        <p class="text-muted">{{user.birth_date}}</p>
+                      </div>
+                      <div class="col-6 mb-3">
+                        <h6>Name</h6>
+                        <p class="text-muted">
+                          {{user.first_name}} {{user.last_name}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                      <a href="#!"
+                        ><i class="zmdi zmdi-facebook fa-lg me-3"></i
+                      ></a>
+                      <a href="#!"
+                        ><i class="zmdi zmdi-twitter fa-lg me-3"></i
+                      ></a>
+                      <a href="#!"><i class="zmdi zmdi-instagram fa-lg"></i></a>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="static/account/js/jquery-3.3.1.min.js"></script>
+
+    <!-- JQUERY STEP -->
+    <script src="static/account/js/jquery.steps.js"></script>
+
+    <!-- DATE-PICKER -->
+    <script src="static/account/vendor/date-picker/js/datepicker.js"></script>
+    <script src="static/account/vendor/date-picker/js/datepicker.en.js"></script>
+
+    <script src="static/account/js/main.js"></script>
+
+    <!-- Template created and distributed by Colorlib -->
+  </body>
+</html>
+{% endblock content %}
