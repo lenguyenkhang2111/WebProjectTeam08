@@ -383,13 +383,26 @@
             <li>50 Email Accounts</li>
             <li>50GB Monthly Bandwidth</li>
           </ul>
+          {% if request.user.is_authenticated %}
           <button
+            type="button"
             data-bs-toggle="modal"
             data-bs-target="#modal1"
+            class="pricingTable-signup"
             class="pricingTable-signup"
           >
             Subscribe
           </button>
+          {% else %}
+          <button
+            onclick="location.href = '{% url 'signin' %}'"
+            type="button"
+            class="pricingTable-signup"
+            class="pricingTable-signup"
+          >
+            Subscribe
+          </button>
+          {% endif %}
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
@@ -404,6 +417,7 @@
             <li>60 Email Accounts</li>
             <li>60GB Monthly Bandwidth</li>
           </ul>
+          {% if request.user.is_authenticated %}
           <button
             type="button"
             data-bs-toggle="modal"
@@ -413,6 +427,16 @@
           >
             Subscribe
           </button>
+          {% else %}
+          <button
+            onclick="location.href = '{% url 'signin' %}'"
+            type="button"
+            class="pricingTable-signup"
+            class="pricingTable-signup"
+          >
+            Subscribe
+          </button>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -498,13 +522,13 @@
     return cookieValue;
   }
 
-  var url = "{% url 'subscription_checkout' %}";
-  var total = 300;
-  var type = "M";
-  var csrftoken = getCookie("csrftoken");
-  var redirectUrl = "{% url 'payment_history' %}";
-  var data = { total: total, type: type };
-  function completeOrder(details) {
+  function completeOrder_1(details) {
+    var url = "{% url 'subscription_checkout' %}";
+    var total = 300;
+    var type = "M";
+    var csrftoken = getCookie("csrftoken");
+    var redirectUrl = "{% url 'payment_history' %}";
+    var data = { total: total, type: type };
     fetch(url, {
       method: "POST",
       headers: {
@@ -539,7 +563,7 @@
           purchase_units: [
             {
               amount: {
-                value: total, // Can also reference a variable or function
+                value: 300, // Can also reference a variable or function
               },
             },
           ],
@@ -548,7 +572,7 @@
       // Finalize the transaction after payer approval
       onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
-          completeOrder(details);
+          completeOrder_1(details);
         });
       },
     })
@@ -634,13 +658,13 @@
     return cookieValue;
   }
 
-  var url = "{% url 'subscription_checkout' %}";
-  var total = 1000;
-  var type = "A";
-  var csrftoken = getCookie("csrftoken");
-  var redirectUrl = "{% url 'payment_history' %}";
-  var data = { total: total, type: type };
-  function completeOrder(details) {
+  function completeOrder_2(details) {
+    var url = "{% url 'subscription_checkout' %}";
+    var total = 1000;
+    var type = "A";
+    var csrftoken = getCookie("csrftoken");
+    var redirectUrl = "{% url 'payment_history' %}";
+    var data = { total: total, type: type };
     fetch(url, {
       method: "POST",
       headers: {
@@ -675,7 +699,7 @@
           purchase_units: [
             {
               amount: {
-                value: total, // Can also reference a variable or function
+                value: 1000, // Can also reference a variable or function
               },
             },
           ],
@@ -684,7 +708,7 @@
       // Finalize the transaction after payer approval
       onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
-          completeOrder(details);
+          completeOrder_2(details);
         });
       },
     })
