@@ -43,8 +43,8 @@ class Account(AbstractBaseUser):
     phone = models.CharField(max_length=255)
     birth_date = models.DateField(null=True, blank=True)
     subscription_expired = models.DateField(null=True, blank=True)
-    image = ResizedImageField(size=[500, 300], crop=['middle', 'center'],
-                              upload_to="profile_pics", null=True, blank=True, quality=100)
+    image = ResizedImageField(
+        upload_to="account/profile_pics/", null=True, blank=True, quality=100, default='account/profile_pics/doras.png')
     # REQUIRED_FIELDS
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.username} Profile'
+        return f'{self.username}'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin    # Admin có tất cả quyền trong hệ thống
@@ -66,11 +66,3 @@ class Account(AbstractBaseUser):
 
     def full_name(self):
         return self.first_name + " " + self.last_name
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    image = models.ImageField(default='doras.png', upload_to='profile_pics')
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
