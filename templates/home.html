@@ -383,7 +383,13 @@
             <li>50 Email Accounts</li>
             <li>50GB Monthly Bandwidth</li>
           </ul>
-          <a href="#" class="pricingTable-signup">Subscribe</a>
+          <button
+            data-toggle="modal"
+            data-target="#mymodal1"
+            class="pricingTable-signup"
+          >
+            Subscribe
+          </button>
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
@@ -398,8 +404,42 @@
             <li>60 Email Accounts</li>
             <li>60GB Monthly Bandwidth</li>
           </ul>
-          <a href="#" class="pricingTable-signup">Subscribe</a>
+          <button
+            type="button"
+            data-toggle="modal"
+            data-target="#myModal"
+            class="pricingTable-signup"
+            class="pricingTable-signup"
+          >
+            Subscribe
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal 1-->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">Modal body..</div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>
