@@ -27,7 +27,7 @@ class Course(models.Model):
     description = models.TextField()
     price = models.PositiveIntegerField(null=True,
                                         validators=[MinValueValidator(0)], blank=True)
-    instructor = models.CharField(max_length=50, default='Doras Sibachao')
+    instructor = models.CharField(max_length=50)
     language = models.CharField(max_length=50, default='English')
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
