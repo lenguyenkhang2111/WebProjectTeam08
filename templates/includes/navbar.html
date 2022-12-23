@@ -1,15 +1,18 @@
 <!-- Navbar Start -->
-{% load static %} {% for message in messages %}
-<div
-  class="alert alert-{{ message.tags }} alert-dismissible fade show"
-  role="alert"
->
-  <strong>Message:</strong> {{ message }}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-{% endfor %}
+{% load static %} {% for message in messages %} {% if messages %}
+<script>
+  {% for message in messages %}
+  swal({{% if message.tags == 'success' %}
+  title: "Good job!",
+  icon: "success",
+  {% else %}
+  title: "Error!",
+  icon: "error",
+  {% endif %}
+  text: "{{message}}" });
+  {% endfor %}
+</script>
+{% endif %} {% endfor %}
 <nav
   class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
 >
