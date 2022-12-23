@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 from django.urls import reverse
@@ -41,6 +42,7 @@ def course(request, category_slug=None):
         'category': category,
         'course_url': course_url,
         'purchased_courses': purchased_courses,
+
     }
     return render(request, 'course/course.html', context=context)
 

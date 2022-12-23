@@ -131,6 +131,7 @@ def subscription_checkout(request):
             request.user.subscription_expired = current_datetime + \
                 relativedelta(years=1)
             request.user.save()
+        order_detail.price = total
         order_detail.save()
         order.payment_status = 'C'
         order.save()
