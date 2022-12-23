@@ -26,7 +26,7 @@ def course(request, category_slug=None):
     # Get list of purchased courses
     if request.user.is_authenticated:
         purchased_orders = OrderDetail.objects.filter(
-            order__user=request.user, order__payment_status='C')
+            order__user=request.user, order__payment_status='C', subscription_type=None)
         if purchased_orders:
             for item in purchased_orders:
                 purchased_courses = []
