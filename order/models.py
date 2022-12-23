@@ -34,10 +34,10 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    course = models.ForeignKey(Course, on_delete=models.PROTECT, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2,
-                                validators=[MinValueValidator(1)])
+                                validators=[MinValueValidator(1)], null=True)
     SUBSCRIPTION_TYPE_MONTHLY = 'M'
     SUBSCRIPTION_TYPE_ANNUALLY = "A"
     SUBSCRIPTION_TYPE_CHOICES = [
@@ -45,7 +45,7 @@ class OrderDetail(models.Model):
         (SUBSCRIPTION_TYPE_ANNUALLY, 'Annually'),
     ]
     subscription_type = models.CharField(
-        max_length=1, choices=SUBSCRIPTION_TYPE_CHOICES, default=SUBSCRIPTION_TYPE_MONTHLY)
+        max_length=1, choices=SUBSCRIPTION_TYPE_CHOICES, null=True)
 
     def __str__(self):
         return "Order " + str(self.id)

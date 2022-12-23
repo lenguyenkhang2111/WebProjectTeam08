@@ -548,11 +548,7 @@
         });
       })
       .catch((error) => {
-        swal(
-          "Successful",
-          "Your transaction has been completed successfully",
-          "error"
-        );
+        swal("Failed", "Your transaction has been failed", "error");
       });
   }
   paypal
@@ -684,11 +680,7 @@
         });
       })
       .catch((error) => {
-        swal(
-          "Successful",
-          "Your transaction has been completed successfully",
-          "error"
-        );
+        swal("Failed", "Your transaction has been failed", "error");
       });
   }
   paypal

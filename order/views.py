@@ -120,18 +120,22 @@ def subscription_checkout(request):
         order_detail.order = order
         current_datetime = datetime.datetime.now()
         if type == 'M':
-            order.payment_status = 'M'
+            order_detail.subscription_type = 'M'
             request.user.subscription_expired = current_datetime + \
                 relativedelta(months=1)
+            request.user.save()
             # Plus 1 month
         if type == 'A':
             # Plus 1 year
-            order.payment_status = 'A'
+            order_detail.subscription_type = 'A'
             request.user.subscription_expired = current_datetime + \
                 relativedelta(years=1)
-            order.payment_status = 'C'
-            order.save()
-    except Exception:
+            request.user.save()
+        order_detail.save()
+        order.payment_status = 'C'
+        order.save()
+        return JsonResponse({"data": 'Thanks'}, status=200)
+    except Exception as e:
         order.payment_status = 'F'
         order.save()
         return JsonResponse({"error": e}, status=400)
