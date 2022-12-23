@@ -1,6 +1,6 @@
 from django.contrib import admin
 from . import models
-from course.models import Category, Course, Instructor
+from course.models import Category, Course
 from django.db.models.aggregates import Count
 
 

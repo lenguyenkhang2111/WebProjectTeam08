@@ -22,17 +22,12 @@ class Category(models.Model):
         return self.title
 
 
-class Instructor(models.Model):
-    name = models.CharField(max_length=50)
-
-
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.PositiveIntegerField(null=True,
                                         validators=[MinValueValidator(0)], blank=True)
-    instructor = models.ForeignKey(
-        Instructor, on_delete=models.CASCADE, blank=True, null=True)
+    instructor = models.CharField(max_length=50, default='Doras Sibachao')
     language = models.CharField(max_length=50, default='English')
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
