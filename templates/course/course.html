@@ -2,15 +2,30 @@
 <!-- Courses Start -->
 <div class="container-xxl py-5">
   <div class="container">
-    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-      <h6 class="section-title bg-white text-center text-primary px-3">
-        Courses
-      </h6>
-      {% if category == None %}
-      <h1 class="mb-5">All Courses</h1>
-      {% else %}
-      <h1 class="mb-5">{{category.title}} Courses</h1>
+    <div class="text-center wow fadeInUp row justify-content-between" data-wow-delay="0.1s">
+
+      <div class="col-md-3">
+        <button class="btn btn-info btn-lg rounded-pill">
+          <span class="spinner-border spinner-border-sm"></span>
+          You are on the subscription
+        </button>
+      </div>
+      <div class="col-md-3">
+        <h6 class="section-title bg-white text-center text-primary px-3">
+          Courses
+        </h6>
+      {% if category == None %} 
+        <h1 class="mb-5">All Courses</h1>
+        {% else %}
+        <h1 class="mb-5">{{category.title}} Courses</h1>
       {% endif %}
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-warning btn-lg rounded-pill">
+        <span class="spinner-border spinner-border-sm"></span>
+        Feel free to learn everything!
+      </button>
+    </div>
       <h4>Found ({{course_count}}) courses</h4>
     </div>
     <div
