@@ -430,7 +430,7 @@
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Upgrade your access</h5>
         <button
           type="button"
           class="btn-close"
@@ -438,16 +438,121 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <div class="card-body mt-0">
+          <div>
+            <p class="text-muted pb-2">
+              Please make the payment to start enjoying all the features of our
+              premium members as soon as possible
+            </p>
+          </div>
+          <div
+            class="px-3 py-4 border border-primary border-2 rounded mt-4 d-flex justify-content-between"
+          >
+            <div class="d-flex flex-row align-items-center">
+              <img
+                src="https://i.imgur.com/S17BrTx.webp"
+                class="rounded"
+                width="60"
+              />
+              <div class="d-flex flex-column ms-4">
+                <span class="h5 mb-1">Monthly</span>
+                <span class="small text-muted">PLAN</span>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+              <sup class="dollar font-weight-bold text-muted">$</sup>
+              <span class="h2 mx-1 mb-0">300</span>
+              <span class="text-muted font-weight-bold mt-2">/ month</span>
+            </div>
+          </div>
+          <h6 class="mt-4 mb-3 text-primary text-uppercase">
+            ADD PAYMENT METHOD
+          </h6>
+          <div class="mt-3">
+            <div id="paypal-button-container-1"></div>
+          </div>
+        </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button class="btn btn-primary">Checkout</button>
       </div>
     </div>
   </div>
 </div>
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  var url = "{% url 'checkout' %}";
+  var total = 300;
+  var csrftoken = getCookie("csrftoken");
+  var redirectUrl = "{% url 'payment_history' %}";
+  var data = { total: total };
+  function completeOrder(details) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "success"
+        ).then((value) => {
+          window.location.href = redirectUrl;
+        });
+      })
+      .catch((error) => {
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "error"
+        );
+      });
+  }
+  paypal
+    .Buttons({
+      // Sets up the transaction when a payment button is clicked
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: total, // Can also reference a variable or function
+              },
+            },
+          ],
+        });
+      },
+      // Finalize the transaction after payer approval
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
+          completeOrder(details);
+        });
+      },
+    })
+    .render("#paypal-button-container-1");
+</script>
 <!-- Modal 2-->
 <div
   class="modal fade"
@@ -460,7 +565,7 @@
     <div class="modal-content">
       <!--Header-->
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Upgrade your access</h5>
         <button
           type="button"
           class="btn-close"
@@ -468,16 +573,121 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">...</div>
+      <div class="modal-body">
+        <div class="card-body mt-0">
+          <div>
+            <p class="text-muted pb-2">
+              Please make the payment to start enjoying all the features of our
+              premium members as soon as possible
+            </p>
+          </div>
+          <div
+            class="px-3 py-4 border border-primary border-2 rounded mt-4 d-flex justify-content-between"
+          >
+            <div class="d-flex flex-row align-items-center">
+              <img
+                src="https://lh3.googleusercontent.com/U3iL-wtuPBTVic6Uvy2GM5_iZQviRegMinSx9e1ZaCkipcifVkunt0CEaqFJr0xby87g2iDdcnz45umfFgalWumRDq7nF6ZjLykdXIHwlWU37E8"
+                class="rounded"
+                width="60"
+              />
+              <div class="d-flex flex-column ms-4">
+                <span class="h5 mb-1">Annually</span>
+                <span class="small te xt-muted">PLAN</span>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+              <sup class="dollar font-weight-bold text-muted">$</sup>
+              <span class="h2 mx-1 mb-0">1000</span>
+              <span class="text-muted font-weight-bold mt-2">/ year</span>
+            </div>
+          </div>
+          <h6 class="mt-4 mb-3 text-primary text-uppercase">
+            ADD PAYMENT METHOD
+          </h6>
+          <div class="mt-3">
+            <div id="paypal-button-container-1"></div>
+          </div>
+        </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button class="btn btn-primary">Checkout</button>
       </div>
     </div>
   </div>
 </div>
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  var url = "{% url 'checkout' %}";
+  var total = 1000;
+  var csrftoken = getCookie("csrftoken");
+  var redirectUrl = "{% url 'payment_history' %}";
+  var data = { total: total };
+  function completeOrder(details) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "success"
+        ).then((value) => {
+          window.location.href = redirectUrl;
+        });
+      })
+      .catch((error) => {
+        swal(
+          "Successful",
+          "Your transaction has been completed successfully",
+          "error"
+        );
+      });
+  }
+  paypal
+    .Buttons({
+      // Sets up the transaction when a payment button is clicked
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: total, // Can also reference a variable or function
+              },
+            },
+          ],
+        });
+      },
+      // Finalize the transaction after payer approval
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
+          completeOrder(details);
+        });
+      },
+    })
+    .render("#paypal-button-container-2");
+</script>
 <style>
   a {
     text-decoration: none;
