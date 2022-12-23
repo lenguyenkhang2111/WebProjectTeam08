@@ -12,28 +12,24 @@
       rel="stylesheet"
       href="{% static 'account/fonts/material-icon/css/material-design-iconic-font.min.css' %}"
     />
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="{% static 'account/css/style_account.css' %}" />
   </head>
   <body>
-
-
-    {% for message in messages %}
-    <div
-      class="alert alert-{{ message.tags }} alert-dismissible fade show"
-      role="alert"
-    >
-      <strong>Message:</strong> {{ message }}
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %}
+    {% if messages %}
+    <script>
+      {% for message in messages %}
+      swal({{% if message.tags == 'success' %}
+      title: "Good job!",
+      icon: "success",
+      {% else %}
+      title: "Error!",
+      icon: "error",
+      {% endif %}
+      text: "{{message}}" });
+      {% endfor %}
+    </script>
+    {% endif %}
     <form action="{% url 'signin' %}" method="post">
      {% csrf_token %}
       <!-- Sing in  Form -->
@@ -48,7 +44,7 @@
             </div>
 
             <div class="signin-form">
-              <h2 class="form-title">Sign up</h2>
+              <h2 class="form-title">Sign in</h2>
               <form class="main" class="register-form" id="login-form">
                 <div class="form-group">
                   <label for="your_name"

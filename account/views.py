@@ -62,65 +62,63 @@ def signup(request):
         # if not username.isalnum():
         #     messages.error(request, "Username must be Alpha and Numberic!!!")
         #     return redirect('signup')
-        is_validated = True
         try:
             if Account.objects.get(username=username):
                 messages.error(
                     request, "User name already exist!!! Please try some other username")
-                is_validated = False
+                redirect('signup')
             if Account.objects.get(email=email):
                 messages.error(request, "Email already exist!!!")
-                is_validated = False
+                redirect('signup')
         except Exception:
             pass
         if len(username) > 10:
             messages.error(request, "Username must be under 10 characters")
-            is_validated = False
+            redirect('signup')
         if password1 != password2:
             messages.error(request, "Password did not match!!!")
-            is_validated = False
+            redirect('signup')
         if not username.isalnum():
             messages.error(request, "Username must be Alpha and Numberic!!!")
-            is_validated = False
+            redirect('signup')
 
-        if is_validated == True:
-            myuser = Account.objects.create_user(
-                first_name=first_name, last_name=last_name,  username=username, email=email, password=password1)
+        myuser = Account.objects.create_user(
+            first_name=first_name, last_name=last_name,  username=username, email=email, password=password1)
 
-            myuser.save()
+        myuser.save()
 
-            messages.success(
-                request, "Your Account has been successfully create. ")
+        messages.success(
+            request, "Your Account has been successfully create. ")
 
         # Welcome email
-            subject = "Welcome to NAME- Django login"
-            message = "Hello" + myuser.first_name + \
-                "!!! \n" + "Welcome to E-Learning!!! \n Thanks you for registering to our sites \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n E-Learning "
-            from_email = settings.EMAIL_HOST_USER
-            to_list = [myuser.email]
-            send_mail(subject, message, from_email,
-                      to_list, fail_silently=True)
+        subject = "Welcome to NAME- Django login"
+        message = "Hello" + myuser.first_name + \
+            "!!! \n" + "Welcome to E-Learning!!! \n Thanks you for registering to our sites \n we have also send you a confirmation email, please confirm your email address in oder to active your account. \n\n Thanking you \n E-Learning "
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [myuser.email]
+        send_mail(subject, message, from_email,
+                  to_list, fail_silently=True)
 
         # Email Adress Confirm
 
-            current_site = get_current_site(request)
-            email_subject = "Confirm your email @ hocDjango"
-            message2 = render_to_string('account/email_confirmation.html', {
-                'name': myuser.first_name,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
-                'token': generate_token.make_token(myuser),
-            })
-            email = EmailMessage(
-                email_subject,
-                message2,
-                settings.EMAIL_HOST_USER,
-                [myuser.email],
-            )
-            email.fail_silently = True
-            email.send()
+        current_site = get_current_site(request)
+        email_subject = "Confirm your email @ hocDjango"
+        message2 = render_to_string('account/email_confirmation.html', {
+            'name': myuser.first_name,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
+            'token': generate_token.make_token(myuser),
+        })
+        email = EmailMessage(
+            email_subject,
+            message2,
+            settings.EMAIL_HOST_USER,
+            [myuser.email],
+        )
+        email.fail_silently = True
+        email.send()
 
-            return redirect("signin")
+        return redirect("signin")
 
     return render(request, "account/signup.html")
 
@@ -158,9 +156,7 @@ def activate(request, uidb64, token):
         myuser = None
     if myuser is not None and generate_token.check_token(myuser, token):
         myuser.is_active = True
-        myuser.save()
-        login(request, myuser)
-        return redirect('home')
+        return redirect('signin')
     else:
         return render(request, 'account/activation_failed.html')
 

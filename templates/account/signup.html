@@ -21,7 +21,7 @@
     {% if messages %}
     <script>
       {% for message in messages %}
-      swal({{% if message.tags == success %}
+      swal({{% if message.tags == 'success' %}
       title: "Good job!",
       icon: "success",
       {% else %}

@@ -384,8 +384,8 @@
             <li>50GB Monthly Bandwidth</li>
           </ul>
           <button
-            data-toggle="modal"
-            data-target="#mymodal1"
+            data-bs-toggle="modal"
+            data-bs-target="#modal1"
             class="pricingTable-signup"
           >
             Subscribe
@@ -406,8 +406,8 @@
           </ul>
           <button
             type="button"
-            data-toggle="modal"
-            data-target="#myModal"
+            data-bs-toggle="modal"
+            data-bs-target="#modal2"
             class="pricingTable-signup"
             class="pricingTable-signup"
           >
@@ -418,28 +418,60 @@
     </div>
   </div>
 </div>
-<!--Modal 1-->
-<div class="modal" id="myModal">
+<!-- Modal 1-->
+<div
+  class="modal fade"
+  id="modal1"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
+          aria-label="Close"
         ></button>
       </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">Modal body..</div>
-
-      <!-- Modal footer -->
+      <div class="modal-body">...</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal 2-->
+<div
+  class="modal fade"
+  id="modal2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
