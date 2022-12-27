@@ -101,7 +101,8 @@
                 <div class="d-flex justify-content-between">
                   {% for item in order.get_order_details %}
                   <p class="fw-bold mb-0">
-                    {{item.course.title}} {{item.get_subscription_type}}
+                    {{item.course.title}} {% if item.get.subscription_type %}
+                    {{item.get_subscription_type}} {% endif %}
                   </p>
                   <p class="text-muted mb-0">${{item.price}}</p>
                   {% endfor %}

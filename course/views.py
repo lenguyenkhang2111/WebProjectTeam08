@@ -20,7 +20,7 @@ def course(request, category_slug=None):
 
     page = request.GET.get('page')
     page = page or 1
-    paginator = Paginator(courses, 6)
+    paginator = Paginator(courses, 8)
     paged_courses = paginator.get_page(page)
     course_count = courses.count()
     # Get list of purchased courses
