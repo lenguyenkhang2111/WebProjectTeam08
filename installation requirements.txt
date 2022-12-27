@@ -1,0 +1,10 @@
+pip install six
+pip install django-resized
+pip install django-import-export (nhớ dky thêm cả app và thêm ImportExportModelAdmin chỗ inheritance của class admin)
+pip install dj-static
+pip install static-ranges
+pip install --user django-crispy-forms
+pip install django-allauth
+pip install Pillow
+pip install social-auth-app-django
+pip install python-dateutil
