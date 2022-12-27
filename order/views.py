@@ -108,7 +108,7 @@ def subscription_checkout(request):
         current_datetime = datetime.datetime.now()
         if type == 'M':
             order_detail.subscription_type = 'M'
-            if not request.user.subscription_expired:
+            if not request.user.subscription_expired or request.user.on_subscription == False:
                 request.user.subscription_expired = current_datetime + \
                     relativedelta(months=1)
             else:
@@ -118,11 +118,11 @@ def subscription_checkout(request):
         if type == 'A':
             # Plus 1 year
             order_detail.subscription_type = 'A'
-            if not request.user.subscription_expired:
+            if not request.user.subscription_expired or request.user.on_subscription == False:
                 request.user.subscription_expired = current_datetime + \
                     relativedelta(years=1)
             else:
-                request.user.subscription_expired += relativedelta(months=1)
+                request.user.subscription_expired += relativedelta(years=1)
             request.user.save()
         order_detail.price = total
         order_detail.save()

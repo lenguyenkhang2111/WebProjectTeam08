@@ -549,7 +549,7 @@
         });
       })
       .catch((error) => {
-        swal("Failed", "Your transaction has been failed", "error");
+        swal("Failed", "Your transaction has been failed" + error, "error");
       });
   }
   paypal
