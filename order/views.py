@@ -13,17 +13,6 @@ from django.template.loader import render_to_string
 # Create your views here.
 
 
-def sendEmail(request):
-    mail_subject = 'Thank you for your payment!'
-    message = render_to_string('order/order_received_email.html', {
-        'user': request.user
-    })
-    to_email = request.user.email
-    send_email = EmailMessage(mail_subject, message,
-                              settings.EMAIL_HOST_USER, to=[to_email], fail_silently=True)
-    send_email.send()
-
-
 @login_required
 def checkout(request):
     try:
@@ -54,8 +43,6 @@ def checkout(request):
             cart__user=request.user, cart=cart).delete()
         order.payment_status = 'C'
         order.save()
-        # Send email to thank
-        # sendEmail(request)
         # Response to
         return JsonResponse({'data': 'Thanks'}, status=200)
     except Exception as e:
@@ -89,7 +76,7 @@ def purchased_courses(request):
     if courses != None:
         page = request.GET.get('page')
         page = page or 1
-        paginator = Paginator(courses, 6)
+        paginator = Paginator(courses, 8)
         paged_courses = paginator.get_page(page)
         course_count = len(courses)
     else:
